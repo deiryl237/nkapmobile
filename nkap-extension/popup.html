@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <style>
+    body { font-family: system-ui, sans-serif; width: 260px; padding: 14px; background: #F5FAFD; color: #12233A; }
+    h1 { font-size: 15px; margin: 0 0 10px; }
+    label { display: flex; align-items: center; gap: 8px; font-size: 13px; margin: 8px 0; }
+    input[type=text] { width: 100%; padding: 6px 8px; border: 1px solid #C9DCE8; border-radius: 8px; font-size: 12px; }
+    button { margin-top: 10px; width: 100%; padding: 8px; border: 0; border-radius: 10px; background: #0AB4FF; color: #fff; font-weight: 700; cursor: pointer; }
+    .hint { font-size: 11px; color: #54677D; margin-top: 10px; }
+    .warn { background: #FFF3E0; border-radius: 8px; padding: 8px; font-size: 11px; margin-top: 10px; color: #8A5B00; }
+  </style>
+</head>
+<body>
+  <h1>nkapmobile 🧠</h1>
+  <label><input type="checkbox" id="ewondoOn" /> Traduire l'interface en ewondo</label>
+  <div style="margin-top:10px;font-size:12px;">URL du cerveau (M2)</div>
+  <input type="text" id="brainUrl" placeholder="http://192.168.x.x:9000" />
+  <button id="save">Enregistrer</button>
+  <div class="warn">⚠ Le lexique ewondo est en attente de validation par le relecteur — le toggle reste OFF tant que rien n'est validé (règle « défaut majeur » du règlement).</div>
+  <div class="hint">L'assistant à la demande (bulle/parcours) fonctionne indépendamment du toggle.</div>
+  <script src="popup.js"></script>
+</body>
+</html>

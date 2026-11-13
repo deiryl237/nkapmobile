@@ -1,0 +1,14 @@
+{
+  "id": "p1-solde",
+  "comment": "P1 — consultation du solde (parcours imposé). Montants recopiés à l'identique de l'écran.",
+  "steps": [
+    { "at": 0, "do": [{ "t": "speak", "text": "Ton solde est de 42 500 FCFA.", "lang": "fr" }] },
+    { "at": 400, "do": [
+      { "t": "circle", "id": "c-solde", "target": { "match_text": "Solde" }, "color": "ink", "duration_ms": 700 }
+    ] },
+    { "at": 1300, "do": [
+      { "t": "write", "id": "w-montant", "text": "42 500 FCFA", "target": { "match_text": "42 500 FCFA", "dy": -130 }, "size": 30, "backing": "paper" }
+    ] },
+    { "at": 4600, "do": [{ "t": "clear" }] }
+  ]
+}

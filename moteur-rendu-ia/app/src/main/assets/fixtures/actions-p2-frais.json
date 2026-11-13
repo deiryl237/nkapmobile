@@ -1,0 +1,14 @@
+{
+  "id": "p2-frais",
+  "comment": "P2 — consultation des frais. Le soulignement jaune ne touche jamais le montant.",
+  "steps": [
+    { "at": 0, "do": [{ "t": "speak", "text": "Les frais d'envoi sont de 25 FCFA — zéro virgule deux cinq pour cent.", "lang": "fr" }] },
+    { "at": 500, "do": [
+      { "t": "underline", "id": "u-frais", "target": { "match_text": "Frais d'envoi" }, "color": "yellow", "duration_ms": 450 }
+    ] },
+    { "at": 1200, "do": [
+      { "t": "write", "id": "w-frais", "text": "25 FCFA", "target": { "match_text": "Frais d'envoi", "dy": -36 }, "size": 24, "backing": "paper" }
+    ] },
+    { "at": 4800, "do": [{ "t": "clear" }] }
+  ]
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>KwikPay — maquette de l'environnement de test</title>
+<style>
+  body { font-family: system-ui, sans-serif; background: #F5FAFD; margin: 0; padding-bottom: 80px; }
+  header { background: #1DC8FF; color: #fff; padding: 18px 24px; font-weight: 800; font-size: 20px; }
+  main { max-width: 560px; margin: 20px auto; }
+  .card { background: #fff; border-radius: 16px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 10px rgba(11,27,43,.08); }
+  .balance { background: #0B1B2B; color: #fff; }
+  .balance .label { color: #8FA7BF; font-size: 14px; }
+  .balance .amount { font-size: 40px; font-weight: 900; }
+  .cta { display: block; width: 100%; background: #0ACF83; color: #fff; border: 0; border-radius: 14px; padding: 14px; font-size: 17px; font-weight: 800; cursor: pointer; }
+  .row { display: flex; gap: 16px; align-items: center; padding: 12px 6px; border-bottom: 1px solid #E2EEF5; }
+  .row .txt { flex: 1; }
+  .row .val { font-weight: 800; }
+  .sub { color: #54677D; font-size: 13px; }
+  label { display: block; margin: 12px 0 4px; font-size: 13px; color: #54677D; }
+  input, select { width: 100%; padding: 9px; border: 1px solid #C9DCE8; border-radius: 10px; font-size: 14px; box-sizing: border-box; }
+  .warn { background: #FFF3E0; border-radius: 12px; padding: 14px; font-size: 14px; color: #8A5B00; }
+  .err { background: #FDECEA; border-radius: 12px; padding: 14px; font-size: 14px; color: #B3261E; display: none; }
+  .check { font-size: 13px; display: flex; gap: 8px; align-items: center; margin-top: 10px; }
+  button.secondary { background: #EAF7FF; color: #0AB4FF; border: 0; border-radius: 10px; padding: 10px 14px; font-weight: 700; cursor: pointer; }
+  .steps { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+  .steps button { font-size: 12px; padding: 6px 10px; }
+  h2 { font-size: 16px; margin: 0 0 10px; }
+</style>
+</head>
+<body>
+<header>KwikPay</header>
+<main>
+  <div class="card" style="border:1px dashed #C9DCE8;">
+    <strong>Maquette locale</strong> — reproduit l'environnement de test Safinum pour développer l'extension.
+    <div class="steps" style="margin-top:10px;">
+      <button class="secondary" id="btn-inject">Injecter du contenu inédit</button>
+      <button class="secondary" id="btn-err-solde">Erreur : solde insuffisant</button>
+      <button class="secondary" id="btn-err-reseau">Erreur : réseau</button>
+      <button class="secondary" id="btn-reset">Reset</button>
+    </div>
+  </div>
+
+  <div class="card balance">
+    <div class="label">Solde disponible</div>
+    <div class="amount">42 500 FCFA</div>
+    <div class="sub">Numéro de compte : KP-2026-040717 · Votre compte</div>
+  </div>
+
+  <div class="card">
+    <h2>Consultez votre solde et lancez un transfert en toute sécurité.</h2>
+    <button class="cta" id="cta-transfer">Effectuer un transfert</button>
+    <button class="secondary" style="margin-top:10px;" id="cta-fees">Consulter les frais</button>
+    <h2 style="margin-top:16px;">Transactions récentes</h2>
+    <div class="row"><div class="txt">Salaire reçu</div><div class="val">+ 180 000 FCFA</div></div>
+    <div class="row"><div class="txt">Transfert reçu</div><div class="val">+ 12 000 FCFA</div></div>
+    <div class="row"><div class="txt">Facture électricité</div><div class="val">- 9 800 FCFA</div></div>
+  </div>
+
+  <div class="card">
+    <h2>Choisissez le type de transfert et le montant. Les frais sont calculés automatiquement.</h2>
+    <label>Type d'opération</label>
+    <select id="op-type">
+      <option value="instant">Transfert instantané et gratuit</option>
+      <option value="t1">Transfert standard — Frais de 1,5 % (min. 100 FCFA, max. 2 500 FCFA)</option>
+      <option value="t2">Transfert express — Frais de 2 % (min. 200 FCFA, max. 5 000 FCFA)</option>
+    </select>
+    <label>Montant à envoyer</label>
+    <input id="amount" type="number" value="10000" />
+    <div class="sub" id="fees-line">Frais : 0 FCFA · Solde après opération : 42 500 FCFA</div>
+    <button class="cta" style="margin-top:12px;" id="btn-continue">Continuer</button>
+    <div class="err" id="err">Solde insuffisant pour effectuer ce transfert.</div>
+  </div>
+
+  <div class="card">
+    <h2>Renseignez les informations du destinataire. Vérifiez toujours le numéro avant de valider.</h2>
+    <label>Nom du bénéficiaire</label><input id="benef" value="Aïssatou" />
+    <label>Numéro de téléphone</label><input id="phone" value="+237 6 90 00 00 00" />
+    <label>Motif du transfert</label><input id="reason" value="Soutien familial" />
+    <div class="check"><input type="checkbox" id="chk" /> J'ai vérifié le nom et le numéro du bénéficiaire.</div>
+    <div class="err" id="alert-benef">Alerte de sécurité : ce bénéficiaire n'a jamais été utilisé sur ce compte. Vérifiez le numéro avant de continuer.</div>
+  </div>
+
+  <div class="card">
+    <h2>Récapitulatif</h2>
+    <div class="row"><div class="txt">Bénéficiaire</div><div class="val" id="rec-benef">Aïssatou</div></div>
+    <div class="row"><div class="txt">Téléphone</div><div class="val" id="rec-phone">+237 6 90 00 00 00</div></div>
+    <div class="row"><div class="txt">Montant</div><div class="val" id="rec-amount">10 000 FCFA</div></div>
+    <div class="row"><div class="txt">Frais</div><div class="val" id="rec-fees">25 FCFA</div></div>
+    <div class="row"><div class="txt">Total débité</div><div class="val" id="rec-total">10 025 FCFA</div></div>
+    <div class="check"><input type="checkbox" id="chk2" /> Je confirme que les informations ci-dessus sont correctes.</div>
+    <button class="cta" style="margin-top:12px;">Confirmer le transfert</button>
+  </div>
+
+  <div class="card warn">
+    ⚠ Ne partagez jamais votre code secret. Un agent KwikPay ne vous le demandera pas.
+  </div>
+</main>
+
+<script>
+  // simulation des frais (données fictives)
+  const rate = { instant: 0, t1: 0.015, t2: 0.02 };
+  const min = { instant: 0, t1: 100, t2: 200 }, max = { instant: 0, t1: 2500, t2: 5000 };
+  const solde = 42500;
+  function fmt(n) { return n.toLocaleString("fr-FR") + " FCFA"; }
+  function update() {
+    const type = document.getElementById("op-type").value;
+    const amt = Math.max(0, parseInt(document.getElementById("amount").value || "0"));
+    let fee = Math.round(amt * rate[type]);
+    fee = Math.min(Math.max(fee, min[type]), max[type]);
+    document.getElementById("fees-line").textContent =
+      "Frais : " + fmt(fee) + " · Solde après opération : " + fmt(solde - amt - fee);
+    document.getElementById("rec-amount").textContent = fmt(amt);
+    document.getElementById("rec-fees").textContent = fmt(fee);
+    document.getElementById("rec-total").textContent = fmt(amt + fee);
+    document.getElementById("rec-benef").textContent = document.getElementById("benef").value || "—";
+    document.getElementById("rec-phone").textContent = document.getElementById("phone").value || "—";
+    const over = amt + fee > solde;
+    document.getElementById("err").style.display = over ? "block" : "none";
+  }
+  document.getElementById("op-type").addEventListener("change", update);
+  document.getElementById("amount").addEventListener("input", update);
+  document.getElementById("benef").addEventListener("input", update);
+  document.getElementById("phone").addEventListener("input", update);
+  document.getElementById("cta-fees").addEventListener("click", update);
+  document.getElementById("cta-transfer").addEventListener("click", () => {
+    document.getElementById("amount").scrollIntoView({ behavior: "smooth" });
+    update();
+  });
+
+  // simulation de l'outil interne du comité (« non fourni aux équipes ») :
+  // injection de contenu inédit + erreurs, sans hook dédié
+  document.getElementById("btn-inject").addEventListener("click", () => {
+    const d = document.createElement("div");
+    d.className = "card";
+    d.textContent = "Message important : les transferts vers les nouveaux numéros sont plafonnés à 50 000 FCFA pendant 24 heures.";
+    document.querySelector("main").prepend(d);
+  });
+  document.getElementById("btn-err-solde").addEventListener("click", () => {
+    document.getElementById("err").style.display = "block";
+    document.getElementById("err").textContent = "Solde insuffisant pour effectuer ce transfert.";
+  });
+  document.getElementById("btn-err-reseau").addEventListener("click", () => {
+    const e = document.createElement("div");
+    e.className = "err"; e.style.display = "block";
+    e.textContent = "Erreur réseau : le service est temporairement indisponible. Réessayez.";
+    document.querySelector("main").prepend(e);
+  });
+  document.getElementById("btn-reset").addEventListener("click", () => location.reload());
+  update();
+</script>
+</body>
+</html>

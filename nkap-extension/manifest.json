@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "nkapmobile — accessibilité linguistique",
+  "version": "0.1.0",
+  "description": "Traduit l'interface financière en ewondo (lexique verrouillé, montants intacts) et ajoute l'assistant vocal/dessin manuscrit. Prototype SAFINUM.",
+  "permissions": ["storage", "activeTab"],
+  "host_permissions": ["http://localhost/*", "https://safinum.cm/*"],
+  "web_accessible_resources": [
+    { "resources": ["fixtures/*.json", "fonts/*"], "matches": ["<all_urls>"] }
+  ],
+  "action": { "default_popup": "popup.html" },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/lexicon.js", "src/overlay.js", "src/assistant.js", "src/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": { "service_worker": "src/background.js" }
+}
