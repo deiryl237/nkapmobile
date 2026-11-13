@@ -23,3 +23,11 @@ Thumbs.db
 !debug.keystore
 .env
 secrets/
+.venv/
+
+# ── Service voix (poids téléchargés et audio généré) ──
+voix/models/
+voix/generated/
+voix/.venv/
+voix/**/__pycache__/
+voix/.pytest_cache/
