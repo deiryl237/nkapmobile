@@ -50,6 +50,37 @@ def test_ollama_fallback_when_hf_fails(monkeypatch):
     assert adapter.last_engine == "ollama"
 
 
+def test_openrouter_used_before_hf_and_ollama(monkeypatch):
+    """Vérifie que OpenRouter est prioritaire quand une clé et un modèle sont configurés."""
+    def fake_post(url, **kwargs):
+        class FakeResponse:
+            status_code = 200
+
+            def raise_for_status(self):
+                pass
+
+            def json(self):
+                return {
+                    "choices": [
+                        {"message": {"content": json.dumps({"intent": "check_balance", "amount": "42 500 FCFA"})}}
+                    ]
+                }
+
+        return FakeResponse()
+
+    monkeypatch.setattr("app.llm.requests.post", fake_post)
+
+    adapter = LLMAdapter(
+        model_name="openai/gpt-oss-20b",
+        api_key="hf_optional_token",
+        openrouter_api_key="or_valid_token",
+    )
+    result = adapter.generate("Quel est mon solde ?")
+
+    assert result["intent"] == "check_balance"
+    assert adapter.last_engine == "openrouter"
+
+
 def test_heuristic_fallback_when_both_fail(monkeypatch):
     """Vérifie que si HF et Ollama échouent tous les deux, l'heuristique prend le relais sans planter."""
     def fake_failing_post(url, **kwargs):

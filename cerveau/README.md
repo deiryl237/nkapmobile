@@ -15,7 +15,8 @@ Ce dépôt contient le code complet et opérationnel du **Module M2** et du **Ga
    - Émission du signal critique de fin de tour (`turn_end`) pour débloquer l'UI mobile.
 
 2. **Cerveau LLM Hybride & Souverain (M2.1)** :
-   - **Hugging Face Serverless Inference API** via le nouveau routeur officiel (`router.huggingface.co`).
+   - **OpenRouter** comme fournisseur principal pour le cerveau M2 (`https://openrouter.ai/api/v1/chat/completions`).
+   - **Hugging Face Serverless Inference API** via le nouveau routeur officiel (`router.huggingface.co`) en fallback.
    - **Fallback direct sur Ollama local** (`http://localhost:11434`) pour une exécution 100% gratuite et hors-ligne.
    - **Repli heuristique déterministe** : garantit un taux de disponibilité de 100% sans jamais planter la session.
 
@@ -98,12 +99,17 @@ cp .env.example .env
 
 Aperçu de la configuration :
 ```ini
-# Hugging Face (Serverless Inference API)
+# OpenRouter (prioritaire pour le cerveau M2)
+OPENROUTER_API_KEY=or_...
+OPENROUTER_MODEL=openai/gpt-oss-20b
+OPENROUTER_BASE_URL=https://openrouter.ai/api/v1/chat/completions
+
+# Hugging Face (fallback cloud)
 HF_TOKEN=hf_...
 HF_MODEL=mistralai/Mistral-7B-Instruct-v0.2
 HF_API_URL=https://router.huggingface.co/hf-inference/models/mistralai/Mistral-7B-Instruct-v0.2
 
-# Ollama local (Fallback souverain 100% gratuit)
+# Ollama local (fallback souverain 100% gratuit)
 OLLAMA_HOST=http://localhost:11434
 OLLAMA_MODEL=mistral:7b
 ```

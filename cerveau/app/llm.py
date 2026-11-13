@@ -15,7 +15,7 @@ logger = logging.getLogger("nkap.llm")
 
 
 class LLMAdapter:
-    """Adaptateur LLM hybride : Hugging Face Serverless API avec fallback direct sur Ollama local et heuristique."""
+    """Adaptateur LLM hybride : OpenRouter, Hugging Face, Ollama local et heuristique."""
 
     def __init__(
         self,
@@ -23,6 +23,9 @@ class LLMAdapter:
         api_key: str | None = None,
         ollama_host: str | None = None,
         ollama_model: str | None = None,
+        openrouter_api_key: str | None = None,
+        openrouter_model: str | None = None,
+        openrouter_base_url: str | None = None,
     ):
         self.model_name = model_name or os.getenv("HF_MODEL") or "mistralai/Mistral-7B-Instruct-v0.2"
         self.api_key = api_key or os.getenv("HF_TOKEN")
@@ -30,6 +33,18 @@ class LLMAdapter:
             os.getenv("HF_API_URL")
             or f"https://router.huggingface.co/hf-inference/models/{self.model_name}"
         )
+
+        self.openrouter_api_key = (
+            openrouter_api_key or os.getenv("OPENROUTER_API_KEY") or os.getenv("OPENROUTER_KEY")
+        )
+        self.openrouter_model = (
+            openrouter_model or os.getenv("OPENROUTER_MODEL") or "openai/gpt-oss-20b"
+        )
+        self.openrouter_base_url = (
+            openrouter_base_url
+            or os.getenv("OPENROUTER_BASE_URL")
+            or "https://openrouter.ai/api/v1/chat/completions"
+        ).rstrip("/")
 
         self.ollama_host = (
             ollama_host or os.getenv("OLLAMA_HOST") or "http://localhost:11434"
@@ -68,6 +83,53 @@ class LLMAdapter:
                 except json.JSONDecodeError:
                     pass
             raise ValueError(f"Impossible de parser la réponse JSON du LLM: {text[:200]}")
+
+    def _query_openrouter(self, prompt: str) -> dict[str, Any]:
+        if not self.openrouter_api_key:
+            raise ValueError("OPENROUTER_API_KEY manquant")
+
+        headers = {
+            "Authorization": f"Bearer {self.openrouter_api_key}",
+            "Content-Type": "application/json",
+            "HTTP-Referer": "https://localhost",
+            "X-Title": "NKAP Money",
+        }
+        payload = {
+            "model": self.openrouter_model,
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0.1,
+            "max_tokens": 220,
+        }
+
+        response = requests.post(self.openrouter_base_url, headers=headers, json=payload, timeout=30)
+        if response.status_code == 401:
+            raise ValueError("Clé OpenRouter invalide")
+        if response.status_code in {402, 403}:
+            raise ValueError(f"Quota ou accès OpenRouter restreint ({response.status_code}): {response.text}")
+        response.raise_for_status()
+
+        data = response.json()
+        if isinstance(data, dict):
+            choices = data.get("choices") or []
+            if not choices:
+                if "error" in data:
+                    raise ValueError(data["error"])
+                raise ValueError(f"Format de réponse inattendu depuis OpenRouter: {data!r}")
+
+            message = choices[0].get("message", {})
+            content = message.get("content")
+            if isinstance(content, list):
+                content = "".join(
+                    part.get("text", "") if isinstance(part, dict) else str(part)
+                    for part in content
+                )
+            if isinstance(content, dict):
+                content = content.get("text") or content.get("content")
+            if not isinstance(content, str):
+                raise ValueError(f"Réponse OpenRouter sans texte exploitable: {data!r}")
+            return self.parse_model_json(content)
+
+        raise ValueError(f"Format de réponse inattendu depuis OpenRouter: {data!r}")
 
     def _query_huggingface(self, prompt: str) -> dict[str, Any]:
         if not self.api_key:
@@ -130,17 +192,28 @@ class LLMAdapter:
         self.last_error = None
         self.last_engine = None
 
-        # 1. Tentative Hugging Face (si clé disponible)
+        # 1. Tentative OpenRouter (prioritaire si clé configurée)
+        if self.openrouter_api_key:
+            try:
+                result = self._query_openrouter(prompt)
+                self.last_engine = "openrouter"
+                return result
+            except Exception as exc:
+                self.last_error = f"OpenRouter error: {exc}"
+                logger.warning("Échec OpenRouter, tentative Hugging Face: %s", exc)
+
+        # 2. Tentative Hugging Face (si clé disponible)
         if self.api_key:
             try:
                 result = self._query_huggingface(prompt)
                 self.last_engine = "huggingface"
                 return result
             except Exception as exc:
-                self.last_error = f"HF error: {exc}"
+                prev_err = f"{self.last_error} | " if self.last_error else ""
+                self.last_error = f"{prev_err}HF error: {exc}"
                 logger.warning("Échec Hugging Face, basculement vers Ollama: %s", exc)
 
-        # 2. Fallback souverain direct sur Ollama local
+        # 3. Fallback souverain direct sur Ollama local
         try:
             result = self._query_ollama(prompt)
             self.last_engine = "ollama"
@@ -150,7 +223,7 @@ class LLMAdapter:
             self.last_error = f"{prev_err}Ollama error: {exc}"
             logger.warning("Échec Ollama, utilisation du repli heuristique: %s", exc)
 
-        # 3. Repli heuristique (garantit zéro plantage)
+        # 4. Repli heuristique (garantit zéro plantage)
         self.last_engine = "heuristic"
         return self._fallback_response(prompt)
 

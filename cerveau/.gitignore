@@ -1,0 +1,22 @@
+# Environment files
+.env
+.env.local
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Python cache & tests
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build and egg-info
+build/
+dist/
+*.egg-info/
+

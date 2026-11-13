@@ -1,0 +1,10 @@
+{
+    "balance_answer": {
+        "ewo": "Solde wɔ́g á {amount}.",
+        "fr": "Votre solde est de {amount}."
+    },
+    "transfer_done": {
+        "ewo": "Transfert réussi de {amount}.",
+        "fr": "Transfert réussi de {amount}."
+    }
+}
