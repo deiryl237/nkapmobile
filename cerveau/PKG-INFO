@@ -1,0 +1,65 @@
+Metadata-Version: 2.4
+Name: nkapmoney-m2
+Version: 0.1.0
+Summary: Module M2 - Cerveau et harnais de validation pour le projet NKAP
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi>=0.115.0
+Requires-Dist: uvicorn[standard]>=0.30.0
+Requires-Dist: pydantic>=2.7.0
+Requires-Dist: pytest>=8.0.0
+
+# NKAP Money — Module M2
+
+Ce dépôt contient la base du module M2, conformément au document d’architecture et aux contrats d’interfaces de la session.
+
+## Objectif
+
+Le module M2 est responsable de :
+- réception des événements de contexte et de transcription,
+- génération d’un plan d’action depuis le moteur LLM,
+- validation stricte des payloads selon les règles de sécurité,
+- émission d’un `ActionStream` valide vers l’application cliente.
+
+## Structure
+
+- `app/` : application FastAPI + services M2
+- `app/core/contracts.py` : définitions des payloads partagés
+- `app/core/validators.py` : validateur de sécurité et de vocabulaire
+- `app/core/m2_service.py` : orchestrateur du module M2
+- `app/api/websocket.py` : point d’entrée WebSocket dans le gateway
+- `fixtures/` : fichiers JSON de démonstration
+- `m5_kb/` : base de connaissance locale de référence
+- `tests/` : tests unitaires de validation
+
+## Contrats pris en compte
+
+- `screen_context`
+- `transcript`
+- `action`
+- `action_stream`
+- `enveloppe commune` : type + session_id + turn_id + ts
+
+## Démarrage rapide
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+## Points d’intégration
+
+Le serveur M2 expose des messages typés et un validateur centralisé. Les autres modules doivent s’appuyer sur ces modèles sans modifier le protocole à l’oral.
+
+- M4 / Appareil : envoie `screen_context` et audio / événements de session
+- M3 / STT/TTS : envoie `transcript`, reçoit `speak` et `audio_out`
+- M5 / KB : alimente les phrases, lexique et inventaire UI
+
+## Règles de sécurité actées
+
+- Aucun montant ou texte financier non présent dans le contexte ou dans le lexique n’est autorisé.
+- Le vocabulaire d’actions est strictement limité à 9 types.
+- Les actions visuelles sont limitées à 3 éléments simultanés.
+- Les clés de phrases et les labels doivent provenir de la KB locale.
