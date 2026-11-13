@@ -24,14 +24,17 @@ def create_app(
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         app.state.voice_service = service_factory(settings)
-        yield
-        app.state.voice_service = None
+        try:
+            yield
+        finally:
+            app.state.voice_service.close()
+            app.state.voice_service = None
 
     app = FastAPI(
         title="nkapmobile Voix",
         description=(
             "Traduction française ou anglaise vers l'ewondo et synthèse vocale "
-            "locale. Les modèles sont chargés depuis le disque."
+            "avec des modèles téléchargés et exécutés localement."
         ),
         version="0.1.0",
         lifespan=lifespan,
@@ -41,7 +44,8 @@ def create_app(
         service = getattr(request.app.state, "voice_service", None)
         if service is None:
             raise HTTPException(
-                status_code=503, detail="Les modèles vocaux ne sont pas chargés."
+                status_code=503,
+                detail="Le service voix n'est pas initialisé.",
             )
         return service
 
@@ -74,7 +78,7 @@ def create_app(
                 body.text, body.source_lang, result
             ).model_dump(),
             audio_url=str(request.url_for("get_audio", audio_id=audio_id)),
-            sample_rate=service.sample_rate,
+            sample_rate=service.sample_rate(audio_id),
             duration_ms=service.duration_ms(audio_id),
             cache_hit=cache_hit,
         )
@@ -90,7 +94,9 @@ def create_app(
 
     @app.get("/v1/audio/{audio_id}.wav", name="get_audio")
     def get_audio(audio_id: str, request: Request) -> FileResponse:
-        if len(audio_id) != 32 or any(char not in "0123456789abcdef" for char in audio_id):
+        if len(audio_id) != 32 or any(
+            char not in "0123456789abcdef" for char in audio_id
+        ):
             raise HTTPException(status_code=404, detail="Audio introuvable.")
         return _audio_response(get_service(request), audio_id)
 

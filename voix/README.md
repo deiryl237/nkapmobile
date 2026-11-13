@@ -1,26 +1,24 @@
-# Service TTS ewondo et traduction
+# Service voix Ewondo
 
-API locale de traduction **français → ewondo**, **anglais → français → ewondo**,
-et de synthèse vocale ewondo. Les modèles sont chargés depuis le disque et
-l'inférence ne contacte pas Hugging Face.
+Service REST autonome pour traduire du français ou de l'anglais vers
+l'ewondo, puis synthétiser la voix ewondo. Les modèles Hugging Face sont
+téléchargés explicitement dans `voix/models/`, chargés depuis le disque et
+utilisables sans réseau après le téléchargement.
 
 ## Modèles
 
-| Usage | Modèle | Révision par défaut |
-|---|---|---|
-| TTS ewondo | [OlameMend/mms-tts-ewo](https://huggingface.co/OlameMend/mms-tts-ewo) | `d1614d3b8002f663b660a7c0d982e7ca398566ba` |
-| Français ↔ ewondo | [bivariant/Griot-MT-1.3B-ALL](https://huggingface.co/bivariant/Griot-MT-1.3B-ALL) | `2a19a8919d712db90774bb8d2e7e58a4b568c8d1` |
-| Anglais → français | [Helsinki-NLP/opus-mt-en-fr](https://huggingface.co/Helsinki-NLP/opus-mt-en-fr) | `dd7f6540a7a48a7f4db59e5c0b9c42c8eea67f18` |
+| Usage | Modèle |
+|---|---|
+| Français / anglais → ewondo | [dadv12/nkap-translate-ewo-en-fr](https://huggingface.co/dadv12/nkap-translate-ewo-en-fr) |
+| Texte ewondo → audio | [OlameMend/mms-tts-ewo](https://huggingface.co/OlameMend/mms-tts-ewo) |
 
-Griot-MT ne déclare pas de direction anglais → ewondo. La traduction anglaise
-utilise donc deux modèles en séquence ; elle peut accumuler les erreurs du
-pivot français. Les fiches des modèles Griot-MT et MMS-TTS ewondo ne précisent
-pas leur licence : vérifier les droits d'utilisation avant une diffusion
-commerciale.
+Le modèle de traduction utilise le préfixe `>>ewo<<` pour demander l'ewondo.
+Un téléchargement couvre environ **450 Mo de poids de modèles** ; prévoir
+plus d'espace pour Python, PyTorch et les fichiers temporaires. Les modèles
+ont leurs révisions épinglées dans `app/config.py`.
 
-Le checkpoint Griot-MT fait environ **2,74 Go**, son adaptateur Ewondo environ
-95 Mo, le modèle anglais-français environ 301 Mo, et le TTS environ 145 Mo.
-Prévoir plus de 3,3 Go pour les poids, en plus de l'espace d'installation.
+Les fiches de ces modèles ne précisent pas clairement leur licence. Vérifier
+les droits d'utilisation avant une diffusion commerciale.
 
 ## Installation et téléchargement
 
@@ -28,28 +26,48 @@ Python 3.10 ou plus récent :
 
 ```powershell
 cd voix
-py -3.11 -m venv .venv
+py -3.14 -m venv .venv
 .\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 python -m scripts.download_models
 ```
 
-Le téléchargement récupère uniquement les poids/tokenizers requis, dans
-`voix/models/`. Il faut un accès internet uniquement pour l'installation et
-cette étape de téléchargement. Les modèles et fichiers audio générés sont
-ignorés par Git. Télécharger un modèle ne vaut pas validation de sa qualité.
+Le dépôt contient les poids localement uniquement dans le dossier ignoré par
+Git `voix/models/`. Aucun jeton Hugging Face n'est requis pour ces dépôts
+publics ; le script désactive explicitement l'envoi d'un jeton enregistré.
+Pour ne télécharger qu'un modèle :
 
-## Démarrer
+```powershell
+python -m scripts.download_models translation
+python -m scripts.download_models tts
+```
+
+## Test réel traduction + audio
+
+Après le téléchargement, cette commande charge les deux modèles locaux,
+traduit « Bonjour », génère son audio et l'enregistre dans
+`voix/generated/bonjour.wav` :
+
+```powershell
+python -m scripts.run_bonjour_test
+```
+
+La commande affiche le texte ewondo, la fréquence d'échantillonnage et la
+durée de l'audio. Fichier audio WAV mono PCM 16 bits, 16 kHz.
+
+## Lancer l'API
 
 ```powershell
 uvicorn app.main:app --app-dir . --host 127.0.0.1 --port 8000
 ```
 
-Documentation interactive : <http://127.0.0.1:8000/docs>
+Les poids sont chargés au démarrage depuis le disque ; si un fichier manque,
+le serveur échoue explicitement en indiquant de lancer
+`python -m scripts.download_models`. Aucun appel d'inférence distant n'est
+fait après le téléchargement.
 
-Le serveur charge les poids au démarrage ; si un fichier manque ou que le
-checkpoint est incompatible, le démarrage échoue avec une erreur explicite.
-Le CPU est sélectionné par défaut ; `VOIX_DEVICE=cuda` force CUDA.
+Documentation interactive : <http://127.0.0.1:8000/docs>
 
 ## API
 
@@ -58,71 +76,56 @@ Le CPU est sélectionné par défaut ; `VOIX_DEVICE=cuda` force CUDA.
 `POST /v1/translate`
 
 ```json
-{"text": "Good morning", "source_lang": "en"}
+{"text": "Bonjour", "source_lang": "fr"}
 ```
 
-`source_lang` vaut `fr`, `en` ou `ewo`. Exemple de réponse :
+`source_lang` vaut `fr`, `en` ou `ewo`.
 
-```json
-{
-  "source_text": "Good morning",
-  "source_lang": "en",
-  "target_lang": "ewo",
-  "text": "…",
-  "intermediate_text": "Bonjour"
-}
-```
+### Traduire et synthétiser
 
-`intermediate_text` est la traduction française utilisée pour les requêtes
-anglaises ; il vaut `null` pour les autres langues.
-
-### Traduire puis synthétiser
-
-`POST /v1/synthesize` accepte le même JSON et renvoie le texte Ewondo ainsi
+`POST /v1/synthesize` accepte le même JSON et renvoie le texte ewondo ainsi
 qu'une URL audio locale :
 
 ```json
 {
-  "source_text": "Good morning",
-  "source_lang": "en",
+  "source_text": "Bonjour",
+  "source_lang": "fr",
   "target_lang": "ewo",
   "text": "…",
-  "intermediate_text": "Bonjour",
+  "intermediate_text": null,
   "audio_url": "http://127.0.0.1:8000/v1/audio/….wav",
   "audio_format": "wav",
   "sample_rate": 16000,
   "duration_ms": 830,
-  "mode_used": "neural",
-  "cache_hit": false
+  "cache_hit": false,
+  "mode_used": "neural"
 }
 ```
 
-L'URL audio est réutilisable sur le même serveur. `POST /v1/tts` accepte
-`{"text": "texte ewondo"}` et renvoie directement `audio/wav`.
-`GET /health` indique si les modèles sont chargés.
+`POST /v1/tts` accepte `{"text": "texte ewondo"}` et renvoie directement
+`audio/wav`. `GET /v1/audio/{audio_id}.wav` récupère l'audio mis en cache et
+`GET /health` vérifie que le service REST est démarré.
 
-Les fichiers audio sont servis en WAV mono PCM 16 bits, 16 kHz. Le contrat
-d'intégration I2 de `docs/02-architecture-interfaces.md` prévoit de l'Opus :
-un transcodage sera nécessaire avant de raccorder cette API directement au
-serveur de production.
+Le cerveau peut appeler ces routes sans dépendance de code ni partage du
+runtime : ce module expose uniquement une API HTTP et charge ses propres
+modèles.
 
-## Changer les modèles
+## Configuration
 
-Les IDs, révisions et chemins locaux sont configurables par variables
-d'environnement : `VOIX_TTS_MODEL_ID`, `VOIX_TTS_REVISION`,
-`VOIX_TTS_MODEL_PATH`, `VOIX_GRIOT_MODEL_ID`, `VOIX_GRIOT_REVISION`,
-`VOIX_GRIOT_MODEL_PATH`, `VOIX_EN_FR_MODEL_ID`, `VOIX_EN_FR_REVISION` et
-`VOIX_EN_FR_MODEL_PATH`. `VOIX_OUTPUT_DIR` et `VOIX_DEVICE` configurent les
-sorties et le périphérique d'inférence.
-
-Les modèles de remplacement doivent garder l'architecture/tokenizer du
-backend correspondant. Pour changer d'architecture, implémenter l'interface
-du backend concerné dans `app/models.py` et modifier sa fabrique ; le reste de
-l'API ne dépend pas des modèles Hugging Face.
+| Variable | Défaut | Rôle |
+|---|---|---|
+| `VOIX_TRANSLATION_MODEL_ID` | `dadv12/nkap-translate-ewo-en-fr` | ID du modèle traduction |
+| `VOIX_TRANSLATION_REVISION` | révision épinglée | Révision du modèle traduction |
+| `VOIX_TRANSLATION_MODEL_PATH` | `voix/models/nkap-translate-ewo-en-fr` | Dossier local traduction |
+| `VOIX_TTS_MODEL_ID` | `OlameMend/mms-tts-ewo` | ID du modèle TTS |
+| `VOIX_TTS_REVISION` | révision épinglée | Révision du modèle TTS |
+| `VOIX_TTS_MODEL_PATH` | `voix/models/mms-tts-ewo` | Dossier local TTS |
+| `VOIX_DEVICE` | `auto` | `auto`, `cpu` ou `cuda` |
+| `VOIX_OUTPUT_DIR` | `voix/generated` | Cache audio |
 
 ## Tests
 
 ```powershell
-python -m pip install pytest httpx
+python -m pip install pytest
 python -m pytest
 ```

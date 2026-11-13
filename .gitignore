@@ -24,7 +24,7 @@ Thumbs.db
 secrets/
 .venv/
 
-# ── Service voix (poids téléchargés et audio généré) ──
+# ── Service voix ──
 voix/models/
 voix/generated/
 voix/.venv/
