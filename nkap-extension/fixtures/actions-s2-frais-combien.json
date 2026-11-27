@@ -1,0 +1,78 @@
+{
+  "id": "s2-frais-combien",
+  "screen": "fees",
+  "question_examples": [
+    "Combien coûtent les frais ?",
+    "Pourquoi c'est écrit 0 FCFA ?",
+    "Combien la banque me prend ?"
+  ],
+  "steps": [
+    {
+      "at": 0,
+      "do": [
+        {
+          "t": "speak",
+          "phrase_key": "frais_explication_1",
+          "text": "Les frais sont le petit prix que la banque prend pour faire l'envoi. Vers un compte Safinum, c'est gratuit : zéro franc en plus.",
+          "lang": "fr"
+        },
+        {
+          "t": "notebook",
+          "id": "nb-frais",
+          "title": "Combien coûtent les frais ?",
+          "anchor": { "value_of": ["Frais"] },
+          "lines": [
+            { "id": "nb-mode", "label": "Vers compte Safinum", "value": "Gratuit (0 FCFA)", "color": "green" },
+            { "id": "nb-momo", "label": "Vers Mobile Money", "value": "1,5 % du montant", "color": "ink" },
+            { "id": "nb-bank", "label": "Vers autre banque", "value": "2 % du montant", "color": "ink" },
+            { "divider": true },
+            {
+              "id": "nb-frais-ici",
+              "label": "Tes frais ici",
+              "value_from": { "value_of": ["Frais"] },
+              "fallback_value": "0 FCFA",
+              "color": "yellow",
+              "bold": true,
+              "circle": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "at": 2600,
+      "do": [
+        {
+          "t": "arrow",
+          "id": "a-frais-vers-val",
+          "from": { "node_id": "nb-frais-ici-val" },
+          "to": { "value_of": ["Frais"] },
+          "color": "ink",
+          "duration_ms": 620
+        },
+        {
+          "t": "speak",
+          "phrase_key": "frais_explication_2",
+          "text": "Le montant exact de tes frais pour cet envoi est écrit juste ici.",
+          "lang": "fr"
+        }
+      ]
+    },
+    {
+      "at": 3400,
+      "do": [
+        {
+          "t": "box",
+          "id": "b-frais-val",
+          "target": { "value_of": ["Frais"] },
+          "color": "ink",
+          "duration_ms": 550
+        }
+      ]
+    },
+    {
+      "at": 8000,
+      "do": [{ "t": "clear" }]
+    }
+  ]
+}

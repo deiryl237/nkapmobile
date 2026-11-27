@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr" data-nkap-standalone="1">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="nkap-standalone" content="true" />
+  <title>NkapSDK v1.2 — Sandbox Multi-Canaux SAFINUM</title>
+  <style>
+    :root { --bg:#0b1220; --panel:#111c33; --card:#ffffff; --ink:#0f172a; --gold:#f5b700; --emerald:#10b981; --red:#ef4444; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:system-ui,-apple-system,Segoe UI,sans-serif; background:var(--bg); color:#f8fafc; min-height:100vh; }
+    header { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; padding:14px 22px; background:#0f1a30; border-bottom:1px solid rgba(255,255,255,0.1); }
+    .brand { font-weight:800; font-size:16px; color:var(--gold); letter-spacing:0.3px; }
+    .tabs { display:flex; flex-wrap:wrap; gap:8px; }
+    .tab { background:rgba(255,255,255,0.08); color:#e2e8f0; border:1px solid rgba(255,255,255,0.14); border-radius:999px; padding:6px 14px; font-weight:600; font-size:13px; cursor:pointer; }
+    .tab.active { background:var(--gold); color:#0b1220; border-color:var(--gold); }
+    .layout { display:grid; grid-template-columns:300px 1fr; gap:20px; padding:22px; max-width:1360px; margin:0 auto; }
+    .controls { background:var(--panel); border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:8px; height:fit-content; }
+    .controls h3 { margin:4px 0 4px; font-size:12px; text-transform:uppercase; color:#94a3b8; letter-spacing:0.8px; }
+    .btn { background:rgba(255,255,255,0.07); color:#f8fafc; border:1px solid rgba(255,255,255,0.14); border-radius:10px; padding:9px 12px; font-size:13px; font-weight:600; text-align:left; cursor:pointer; }
+    .btn:hover { background:rgba(245,183,0,0.18); border-color:var(--gold); }
+    .live-box { margin-top:8px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.1); display:flex; flex-direction:column; gap:7px; }
+    .live-input { width:100%; background:#0b1220; color:#f8fafc; border:1px solid rgba(255,255,255,0.18); border-radius:8px; padding:8px 10px; font-size:13px; outline:none; }
+    .live-input:focus { border-color:var(--gold); }
+    .live-send { background:var(--gold); color:#0b1220; border:none; border-radius:9px; padding:9px 12px; font-size:13px; font-weight:800; cursor:pointer; }
+    .live-send:disabled { opacity:0.6; cursor:wait; }
+    .chips { display:flex; flex-wrap:wrap; gap:5px; }
+    .chip { background:rgba(245,183,0,0.12); color:#fde68a; border:1px solid rgba(245,183,0,0.3); border-radius:999px; padding:4px 9px; font-size:11.5px; cursor:pointer; }
+    .chip:hover { background:rgba(245,183,0,0.25); }
+    #live-status { font-size:11.5px; color:#94a3b8; line-height:1.35; min-height:16px; }
+    .stage { display:flex; justify-content:center; align-items:flex-start; padding-top:10px; }
+    .sim { width:100%; max-width:740px; background:var(--card); color:var(--ink); border-radius:18px; padding:24px; box-shadow:0 24px 50px rgba(0,0,0,0.45); }
+    .sim.mobile { max-width:390px; }
+    .sim.ussd { max-width:360px; background:#020617; color:#34d399; font-family:ui-monospace,Consolas,monospace; border:2px solid #334155; }
+    .sim.atm { max-width:680px; background:#0f2942; color:#f8fafc; border:3px solid #38bdf8; }
+    .sim.sms { max-width:390px; background:#e2e8f0; color:#0f172a; }
+    .row { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid rgba(15,23,42,0.08); }
+    .sim.atm .row { border-color:rgba(255,255,255,0.14); }
+    .bal-label { font-size:12.5px; font-weight:700; color:#475569; margin-top:6px; }
+    .sim.atm .bal-label { color:#bae6fd; }
+    .big-amount { font-size:30px; font-weight:800; color:#065f46; margin:2px 0 6px; }
+    .sim.atm .big-amount { color:#38bdf8; }
+    .cta-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+    .cta { display:inline-block; background:#047857; color:#fff; border:none; border-radius:10px; padding:11px 18px; font-weight:700; font-size:14px; cursor:pointer; }
+    .cta.secondary { background:#e2e8f0; color:#0f172a; }
+    .sim.atm .cta.secondary { background:rgba(255,255,255,0.15); color:#f8fafc; }
+    .alert { background:#fef3c7; border:1px solid #f59e0b; color:#92400e; border-radius:10px; padding:10px 12px; font-size:13px; margin:12px 0; }
+    .sms-bubble { background:#ffffff; border-radius:14px; padding:12px 14px; margin:10px 0; box-shadow:0 2px 6px rgba(0,0,0,0.08); font-size:13.5px; }
+    .sms-bubble.out { background:#dcfce7; margin-left:40px; }
+    #text-preview { margin-top:8px; background:#020617; color:#34d399; border:1px solid rgba(52,211,153,0.35); border-radius:10px; padding:10px; font-family:monospace; font-size:12px; white-space:pre-wrap; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">NKAP SDK v1.2 · Interopérabilité Multi-Canaux</div>
+    <div class="tabs" id="channel-tabs">
+      <button class="tab active" data-ch="web">1. Web Banking</button>
+      <button class="tab" data-ch="mobile">2. Mobile Banking</button>
+      <button class="tab" data-ch="ussd">3. USSD (*123#)</button>
+      <button class="tab" data-ch="atm">4. GAB / ATM</button>
+      <button class="tab" data-ch="sms">5. SMS</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="controls">
+      <h3>Scénarios v1.2 (même payload)</h3>
+      <button class="btn" id="demo-flow">1. Trajet d'argent (flow + callout)</button>
+      <button class="btn" id="demo-bars">2. Comparaison Frais / Reste (bars)</button>
+      <button class="btn" id="demo-steps">3. Parcours guidé (num ①→② + frame)</button>
+      <button class="btn" id="demo-correction">4. Corriger 25 000 → 15 000 FCFA</button>
+      <button class="btn" id="demo-clarify">5. Requête ambiguë (choices cliquables)</button>
+      <button class="btn" id="demo-term">6. Terminologie financière (table + check)</button>
+      <button class="btn" id="demo-clear" style="color:#fda4af;">Effacer l'overlay</button>
+
+      <div class="live-box">
+        <h3>Tester en direct avec l'EC2</h3>
+        <input class="live-input" id="live-url" value="https://13.51.168.107.sslip.io" placeholder="URL du cerveau" />
+        <input class="live-input" id="live-q" value="Quel est mon solde ?" placeholder="Pose une question (écran ou concept)..." />
+        <div class="chips">
+          <button class="chip" data-q="Quel est mon solde ?">Mon solde ?</button>
+          <button class="chip" data-q="C'est quoi une microfinance ?">Microfinance ?</button>
+          <button class="chip" data-q="Combien coûtent les frais ?">Frais ?</button>
+          <button class="chip" data-q="Combien il me restera après l'opération ?">Solde après ?</button>
+        </div>
+        <button class="live-send" id="live-send">Envoyer au cerveau EC2</button>
+        <div id="live-status">Prêt (contexte limité à l'écran bancaire).</div>
+      </div>
+
+      <div id="text-preview">// Projection GSM-7 (USSD/SMS)</div>
+    </aside>
+
+    <main class="stage" id="stage"></main>
+  </div>
+
+  <script src="../dist/nkap-sdk.js"></script>
+  <script>
+    const stage = document.getElementById("stage");
+    const textPreview = document.getElementById("text-preview");
+    const liveUrl = document.getElementById("live-url");
+    const liveQ = document.getElementById("live-q");
+    const liveSend = document.getElementById("live-send");
+    const liveStatus = document.getElementById("live-status");
+    let currentChannel = "web";
+
+    const TEMPLATES = {
+      web: `
+        <div class="sim" data-nkap-channel="web">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div style="font-size:12px;color:#64748b;font-weight:700;">SAFINUM WEB BANKING · COMPTE 690 00 00 01</div>
+              <div class="bal-label" data-nkap-id="n_bal_lbl">Solde disponible</div>
+              <div class="big-amount" data-nkap-id="n_balance">120 000 FCFA</div>
+            </div>
+            <span style="background:#ecfdf5;color:#047857;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;">Connexion sécurisée</span>
+          </div>
+          <div class="alert" data-nkap-id="n_alert">Vérifiez toujours le nom et le numéro du bénéficiaire avant de confirmer.</div>
+          <div class="row"><span>Bénéficiaire</span><strong data-nkap-id="n_benef">Paul Mbarga (699 00 00 02)</strong></div>
+          <div class="row"><span>Montant à envoyer</span><strong data-nkap-id="n_amount">25 000 FCFA</strong></div>
+          <div class="row"><span>Frais de transfert</span><strong data-nkap-id="n_fee">150 FCFA</strong></div>
+          <div class="row"><span>Total à débiter</span><strong data-nkap-id="n_total">25 150 FCFA</strong></div>
+          <div class="row"><span>Solde après opération</span><strong data-nkap-id="n_after">94 850 FCFA</strong></div>
+          <div class="cta-row">
+            <button class="cta" data-nkap-id="n_confirm">Confirmer le transfert</button>
+            <button class="cta secondary" data-nkap-id="n_edit">Modifier le montant</button>
+          </div>
+        </div>`,
+      mobile: `
+        <div class="sim mobile" data-nkap-channel="mobile">
+          <div style="font-size:12px;color:#64748b;font-weight:700;">MOBILE BANKING · EWONDO</div>
+          <div class="bal-label" data-nkap-id="n_bal_lbl">Itan ineu (Solde disponible)</div>
+          <div class="big-amount" data-nkap-id="n_balance">120 000 FCFA</div>
+          <div class="alert" data-nkap-id="n_alert">Fombo dzoé ai nombo ossussua.</div>
+          <div class="row"><span>Mod a non</span><strong data-nkap-id="n_benef">Paul Mbarga</strong></div>
+          <div class="row"><span>Itan</span><strong data-nkap-id="n_amount">25 000 FCFA</strong></div>
+          <div class="row"><span>Mbug</span><strong data-nkap-id="n_fee">150 FCFA</strong></div>
+          <div class="row"><span>Ntolan</span><strong data-nkap-id="n_total">25 150 FCFA</strong></div>
+          <div class="cta-row">
+            <button class="cta" style="flex:1;" data-nkap-id="n_confirm">Yemban</button>
+            <button class="cta secondary" data-nkap-id="n_edit">Tyende</button>
+          </div>
+        </div>`,
+      ussd: `
+        <div class="sim ussd" data-nkap-channel="ussd">
+          <div style="color:#94a3b8;margin-bottom:8px;">*123# · SAFINUM USSD (GSM-7)</div>
+          <div data-nkap-id="n_amount">Lomo 25 000 FCFA a Paul Mbarga.</div>
+          <div data-nkap-id="n_fee" style="margin:6px 0;">Mbug 150 FCFA, ntolan 25 150 FCFA.</div>
+          <div data-nkap-id="n_confirm" style="margin-top:10px;color:#f5b700;">1. Yemban (Confirmer)</div>
+          <div data-nkap-id="n_edit" style="margin-top:4px;color:#fda4af;">2. Vaa (Annuler) | 3. Tyende (Modifier)</div>
+        </div>`,
+      atm: `
+        <div class="sim atm" data-nkap-channel="atm">
+          <div style="font-size:12px;color:#7dd3fc;font-weight:700;">GUICHET AUTOMATIQUE SAFINUM (GAB)</div>
+          <div class="bal-label" data-nkap-id="n_bal_lbl">Solde disponible</div>
+          <div class="big-amount" data-nkap-id="n_balance">120 000 FCFA</div>
+          <div class="row"><span>Retrait (multiple de 5 000 FCFA)</span><strong data-nkap-id="n_amount">25 000 FCFA</strong></div>
+          <div class="row"><span>Frais GAB</span><strong data-nkap-id="n_fee">150 FCFA</strong></div>
+          <div class="cta-row">
+            <button class="cta" style="background:#0284c7;" data-nkap-id="n_confirm">Valider le retrait</button>
+            <button class="cta secondary" data-nkap-id="n_edit">Changer le montant</button>
+          </div>
+        </div>`,
+      sms: `
+        <div class="sim sms" data-nkap-channel="sms">
+          <div style="font-weight:700;margin-bottom:8px;">SMS Banking · 8080</div>
+          <div class="sms-bubble out" data-nkap-id="n_amount">LOMO 25 000 FCFA PAUL</div>
+          <div class="sms-bubble" data-nkap-id="n_fee">Safinum: Lomo 25 000 FCFA a Paul Mbarga. Mbug 150 FCFA, ntolan 25 150 FCFA.</div>
+          <div class="sms-bubble" data-nkap-id="n_confirm">Repondez 1 (Confirmer), 2 (Annuler) ou 3 (Modifier).</div>
+        </div>`,
+    };
+
+    // IMPORTANT : root: stage isole le ScreenContext au seul simulateur bancaire (jamais les boutons de démo)
+    const nkap = NkapSDK.mount({
+      root: stage,
+      channel: "web",
+      lang: "fr",
+      onChoice: (ch) => {
+        nkap.renderer.caption(`Choix sélectionné : ${ch.label}`, "Action renvoyée au middleware");
+      },
+    });
+
+    function mountChannel(ch) {
+      currentChannel = ch;
+      nkap.clear();
+      nkap.setChannel(ch);
+      stage.innerHTML = TEMPLATES[ch];
+      document.querySelectorAll(".tab").forEach((b) => b.classList.toggle("active", b.dataset.ch === ch));
+    }
+
+    function runTurn(turn) {
+      nkap.clear();
+      nkap.play(turn);
+      const proj = nkap.renderText(turn, { channel: currentChannel === "sms" ? "sms" : "ussd" });
+      textPreview.textContent = `[${proj.channel.toUpperCase()} · ${proj.septets}/${proj.max_septets} GSM-7]\n${proj.text}`;
+    }
+
+    document.querySelectorAll(".tab").forEach((b) => b.addEventListener("click", () => mountChannel(b.dataset.ch)));
+
+    document.getElementById("demo-flow").onclick = () => runTurn({
+      meta: { channel: currentChannel, lang: "ewo", intent: "TRANSFER", status: "ok" },
+      text_fallback: "Lomo 25 000 FCFA a Paul. Mbug 150 FCFA, ntolan 25 150 FCFA.",
+      actions: [
+        { seq: 1, run_after_ms: 0, action: { t: "speak", text: "Itan wa lom e ne 25 000 FCFA, mbug e ne 150 FCFA.", caption_fr: "Tu envoies 25 000 FCFA avec 150 FCFA de frais." } },
+        { seq: 2, run_after_ms: 150, action: { t: "notebook", id: "nb1", mode: "flow", title: "Trajet de ton argent", anchor: { node_id: "n_amount" }, flow_steps: [
+          { label: "Montant envoyé", value: "25 000 FCFA", tone: "yellow" },
+          { label: "Frais (palier)", value: "150 FCFA", tone: "green" },
+          { label: "Total débité", value: "25 150 FCFA", tone: "ink" }
+        ]}},
+        { seq: 3, run_after_ms: 650, action: { t: "callout", id: "co1", target: { node_id: "n_amount" }, label: "25 000 FCFA", color: "yellow" } },
+      ],
+    });
+
+    document.getElementById("demo-bars").onclick = () => runTurn({
+      meta: { channel: currentChannel, lang: "ewo", intent: "FEE_INQUIRY", status: "ok" },
+      text_fallback: "Itan ineu 120 000 FCFA. Lomo 25 000 FCFA, mbug 150 FCFA.",
+      actions: [
+        { seq: 1, run_after_ms: 0, action: { t: "speak", text: "Mbug e ne 150 FCFA a 25 000 FCFA.", caption_fr: "Les frais sont de 150 FCFA sur 25 000 FCFA." } },
+        { seq: 2, run_after_ms: 150, action: { t: "notebook", id: "nb2", mode: "bars", title: "Part envoyée vs Solde", anchor: { node_id: "n_fee" }, bars: [
+          { label: "Solde actuel", value: 120000, amount_text: "120 000 FCFA", tone: "green" },
+          { label: "Montant envoyé", value: 25000, amount_text: "25 000 FCFA", tone: "yellow" },
+          { label: "Frais", value: 150, amount_text: "150 FCFA", tone: "cyan" }
+        ]}},
+        { seq: 3, run_after_ms: 600, action: { t: "highlight", id: "hl1", target: { node_id: "n_fee" }, color: "yellow" } },
+      ],
+    });
+
+    document.getElementById("demo-steps").onclick = () => runTurn({
+      meta: { channel: currentChannel, lang: "ewo", intent: "TRANSFER", status: "ok" },
+      text_fallback: "1. Fombo itan 25 000 FCFA. 2. Yemban.",
+      actions: [
+        { seq: 1, run_after_ms: 0, action: { t: "speak", text: "1. Fombo itan. 2. Yemban.", caption_fr: "Étape 1 : vérifie le montant. Étape 2 : confirme." } },
+        { seq: 2, run_after_ms: 100, action: { t: "num", id: "s1", target: { node_id: "n_amount" }, step: 1, label: "Vérifie", color: "yellow" } },
+        { seq: 3, run_after_ms: 650, action: { t: "num", id: "s2", target: { node_id: "n_confirm" }, step: 2, label: "Confirme", color: "red" } },
+        { seq: 4, run_after_ms: 1100, action: { t: "frame", id: "f1", target: { node_id: "n_confirm" }, label: "Appuie ici" } },
+      ],
+    });
+
+    // Scénario 4 clarifié : l'utilisateur a demandé à corriger 25 000 FCFA -> 15 000 FCFA avant de confirmer
+    document.getElementById("demo-correction").onclick = () => runTurn({
+      meta: { channel: currentChannel, lang: "ewo", intent: "CORRECTION", status: "corrected" },
+      text_fallback: "Tyende itan: 25 000 FCFA -> 15 000 FCFA. Appuie sur Modifier.",
+      actions: [
+        { seq: 1, run_after_ms: 0, action: { t: "speak", text: "Bi tyende 25 000 FCFA, bi lomo 15 000 FCFA.", caption_fr: "Correction demandée : remplace 25 000 FCFA par 15 000 FCFA avant de confirmer." } },
+        { seq: 2, run_after_ms: 120, action: { t: "notebook", id: "nb_corr", mode: "flow", title: "Correction avant confirmation", anchor: { node_id: "n_amount" }, flow_steps: [
+          { label: "Ancien montant annulé", value: "25 000 FCFA", tone: "red" },
+          { label: "Nouveau montant demandé", value: "15 000 FCFA", tone: "green" },
+          { label: "Action à faire", value: "Appuie sur Modifier", tone: "yellow" }
+        ]}},
+        { seq: 3, run_after_ms: 450, action: { t: "strike", id: "st1", target: { node_id: "n_amount" }, color: "red" } },
+        { seq: 4, run_after_ms: 750, action: { t: "callout", id: "co_corr", target: { node_id: "n_amount" }, label: "Ancien : 25 000 FCFA", color: "red" } },
+        { seq: 5, run_after_ms: 1650, action: { t: "edit", id: "co_corr", label: "Nouveau : 15 000 FCFA", color: "green" } },
+      ],
+    });
+
+    document.getElementById("demo-clarify").onclick = () => runTurn({
+      meta: { channel: currentChannel, lang: "ewo", intent: "CLARIFICATION_NEEDED", status: "needs_clarification" },
+      text_fallback: "Bot biba be bele dzoé Paul. Tob mod wa yi:",
+      choices: [
+        { id: "p1", key: "1", label: "Paul Mbarga (699 00 00 02)", value: "237699000002" },
+        { id: "p2", key: "2", label: "Paul Nkodo (677 00 00 03)", value: "237677000003" }
+      ],
+      actions: [
+        { seq: 1, run_after_ms: 0, action: { t: "speak", text: "Bot biba be bele dzoé Paul. Tob mod wa yi.", caption_fr: "Deux bénéficiaires s'appellent Paul. Choisis le bon :" } },
+        { seq: 2, run_after_ms: 150, action: { t: "notebook", id: "nb_ch", mode: "choices", title: "Quel bénéficiaire ?", choices: [
+          { id: "p1", key: "1", label: "Paul Mbarga (699 00 00 02)", value: "237699000002" },
+          { id: "p2", key: "2", label: "Paul Nkodo (677 00 00 03)", value: "237677000003" }
+        ]}},
+      ],
+    });
+
+    document.getElementById("demo-term").onclick = () => runTurn({
+      meta: { channel: currentChannel, lang: "ewo", intent: "TERM_EXPLANATION", status: "ok" },
+      text_fallback: "Mbug: itan etun banki a tsig (50 a 400 FCFA).",
+      actions: [
+        { seq: 1, run_after_ms: 0, action: { t: "speak", text: "Mbug e ne itan banki a tsig asu lomo moni.", caption_fr: "Les frais sont la petite somme prise par la banque." } },
+        { seq: 2, run_after_ms: 150, action: { t: "notebook", id: "nb_tbl", mode: "table", title: "Comprendre les frais (Mbug)", columns: ["Palier", "Frais"], rows: [
+          ["Jusqu'à 5 000", "50 FCFA"],
+          ["5 001 – 25 000", "150 FCFA"],
+          ["25 001 – 100 000", "400 FCFA"]
+        ]}},
+        { seq: 3, run_after_ms: 600, action: { t: "check", id: "chk1", target: { node_id: "n_fee" }, color: "green" } },
+      ],
+    });
+
+    async function askLiveBrain(questionText) {
+      const base = (liveUrl.value || "").trim().replace(/\/+$/, "");
+      const q = (questionText || liveQ.value || "").trim();
+      if (!base || !q) return;
+      liveQ.value = q;
+      liveSend.disabled = true;
+      liveStatus.textContent = "Interrogation du cerveau en cours…";
+      const t0 = performance.now();
+      try {
+        const ctx = nkap.extractContext();
+        const res = await fetch(`${base}/answer`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            session_id: "demo_live",
+            channel: currentChannel,
+            transcript: q,
+            lang_hint: "fr",
+            context: ctx,
+          }),
+        });
+        const dt = Math.round(performance.now() - t0);
+        if (!res.ok) {
+          const errTxt = await res.text();
+          throw new Error(`HTTP ${res.status}: ${errTxt.slice(0, 120)}`);
+        }
+        const data = await res.json();
+        const acts = (data.actions || []).map((a) => (a.action ? a.action.t : a.t)).join(", ");
+        liveStatus.textContent = `OK en ${dt} ms · intent=${data.meta?.intent || "?"} · [${acts}]`;
+        runTurn(data);
+      } catch (err) {
+        liveStatus.textContent = `Erreur : ${err.message}`;
+      } finally {
+        liveSend.disabled = false;
+      }
+    }
+
+    liveSend.onclick = () => askLiveBrain();
+    liveQ.addEventListener("keydown", (e) => { if (e.key === "Enter") askLiveBrain(); });
+    document.querySelectorAll(".chip").forEach((c) => {
+      c.onclick = () => askLiveBrain(c.dataset.q);
+    });
+
+    document.getElementById("demo-clear").onclick = () => nkap.clear();
+    mountChannel("web");
+  </script>
+</body>
+</html>

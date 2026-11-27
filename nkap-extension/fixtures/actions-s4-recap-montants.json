@@ -1,0 +1,35 @@
+{
+  "id": "s4-recap-montants",
+  "screen": "recap",
+  "question_examples": [
+    "Récapitule-moi les montants",
+    "Combien je vais payer au total ?",
+    "Vérifie le montant et les frais"
+  ],
+  "steps": [
+    {
+      "at": 0,
+      "do": [
+        { "t": "speak", "phrase_key": "recap_intro", "text": "Voici le résumé des montants avant de confirmer.", "lang": "fr" },
+        { "t": "underline", "id": "u-recap-montant", "target": { "value_of": ["Montant"] }, "color": "yellow", "duration_ms": 450 }
+      ]
+    },
+    {
+      "at": 1100,
+      "do": [
+        { "t": "underline", "id": "u-recap-frais", "target": { "value_of": ["Frais"] }, "color": "yellow", "duration_ms": 450 }
+      ]
+    },
+    {
+      "at": 2100,
+      "do": [
+        { "t": "box", "id": "b-recap-total", "target": { "value_of": ["Total débité", "Total à débiter"] }, "color": "ink", "duration_ms": 700 },
+        { "t": "speak", "phrase_key": "recap_show", "text": "Le montant, les frais et le total débité sont écrits ici.", "lang": "fr" }
+      ]
+    },
+    {
+      "at": 6200,
+      "do": [{ "t": "clear" }]
+    }
+  ]
+}

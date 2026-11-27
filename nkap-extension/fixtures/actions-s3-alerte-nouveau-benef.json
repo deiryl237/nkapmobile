@@ -1,0 +1,69 @@
+{
+  "id": "s3-alerte-nouveau-benef",
+  "screen": "beneficiary",
+  "question_examples": [
+    "Pourquoi cet avertissement jaune ?",
+    "Qu'est-ce que ça veut dire en jaune ?",
+    "Que faire avec ce message ?"
+  ],
+  "steps": [
+    {
+      "at": 0,
+      "do": [
+        {
+          "t": "speak",
+          "phrase_key": "alerte_nouveau_1",
+          "text": "La banque affiche ce message jaune parce que tu n'as jamais envoyé d'argent à cette personne. Une fois validé, on ne peut plus annuler le transfert.",
+          "lang": "fr"
+        },
+        {
+          "t": "notebook",
+          "id": "nb-alerte-secu",
+          "title": "Pourquoi cette alerte ?",
+          "anchor": { "field_of": ["Numéro de téléphone", "Numéro"] },
+          "lines": [
+            { "id": "nb-r1", "text": "• C'est ton 1er envoi vers ce contact", "color": "yellow" },
+            { "id": "nb-r2", "text": "• Si un chiffre est faux, l'argent est perdu", "color": "red" },
+            { "divider": true },
+            { "id": "nb-r3", "text": "→ Relis chaque chiffre du numéro", "color": "green", "bold": true, "underline": true }
+          ]
+        }
+      ]
+    },
+    {
+      "at": 2600,
+      "do": [
+        {
+          "t": "arrow",
+          "id": "a-regle-vers-tel",
+          "from": { "node_id": "nb-r3" },
+          "to": { "field_of": ["Numéro de téléphone", "Numéro"] },
+          "color": "ink",
+          "duration_ms": 620
+        },
+        {
+          "t": "speak",
+          "phrase_key": "alerte_nouveau_2",
+          "text": "Vérifie bien chaque chiffre du numéro ici avant de continuer.",
+          "lang": "fr"
+        }
+      ]
+    },
+    {
+      "at": 3400,
+      "do": [
+        {
+          "t": "box",
+          "id": "b-num-tel",
+          "target": { "field_of": ["Numéro de téléphone", "Numéro"] },
+          "color": "ink",
+          "duration_ms": 550
+        }
+      ]
+    },
+    {
+      "at": 8200,
+      "do": [{ "t": "clear" }]
+    }
+  ]
+}

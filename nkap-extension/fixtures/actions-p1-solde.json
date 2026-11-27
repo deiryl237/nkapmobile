@@ -1,0 +1,30 @@
+{
+  "id": "p1-solde",
+  "comment": "P1 — consultation du solde. Souligne le libellé, puis encadre directement le montant à l'écran avec un rectangle manuscrit qui ferme son contour (en jaune feutre sur le fond sombre de la carte Solde). Aucun montant réécrit par-dessus.",
+  "steps": [
+    {
+      "at": 0,
+      "do": [
+        { "t": "speak", "phrase_key": "balance_intro", "text": "Je t'explique ton solde.", "lang": "fr" },
+        { "t": "underline", "id": "u-solde-label", "target": { "match_text": ["Solde disponible", "Votre solde", "Solde"] }, "color": "yellow", "duration_ms": 450 }
+      ]
+    },
+    {
+      "at": 900,
+      "do": [
+        { "t": "box", "id": "b-solde-montant", "target": { "match_regex": "\\d[\\d\\s.,]*\\s*(?:FCFA|francs?)", "pick": "largest_value" }, "color": "ink", "duration_ms": 720 },
+        { "t": "speak", "phrase_key": "balance_show", "text": "Ton solde disponible est écrit ici.", "lang": "fr" }
+      ]
+    },
+    {
+      "at": 4200,
+      "do": [
+        { "t": "speak", "phrase_key": "balance_done", "text": "Tu peux maintenant faire un transfert ou consulter les frais.", "lang": "fr" }
+      ]
+    },
+    {
+      "at": 7200,
+      "do": [{ "t": "clear" }]
+    }
+  ]
+}

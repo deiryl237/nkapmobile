@@ -1,0 +1,19 @@
+{
+  "id": "p3-transfert",
+  "comment": "P3 — préparation d'un transfert vers un bénéficiaire. Phases séquentielles : ≤ 3 marques simultanées.",
+  "steps": [
+    { "at": 0, "do": [{ "t": "speak", "text": "Pour envoyer : touche Envoyer, choisis Aïssatou, puis confirme.", "lang": "fr" }] },
+    { "at": 400, "do": [
+      { "t": "frame", "id": "f-cta", "target": { "match_text": "Envoyer de l'argent" }, "label": "Appuie ici" }
+    ] },
+    { "at": 3600, "do": [
+      { "t": "hide", "id": "f-cta" },
+      { "t": "circle", "id": "c-benef", "target": { "match_text": "Aïssatou" }, "color": "ink", "duration_ms": 700 }
+    ] },
+    { "at": 5800, "do": [
+      { "t": "hide", "id": "c-benef" },
+      { "t": "arrow", "id": "a-voyage", "from": { "match_text": "42 500 FCFA", "dy": 40 }, "to": { "match_text": "Aïssatou" }, "color": "ink", "duration_ms": 900 }
+    ] },
+    { "at": 8600, "do": [{ "t": "clear" }] }
+  ]
+}

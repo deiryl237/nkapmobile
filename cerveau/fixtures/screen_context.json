@@ -1,0 +1,42 @@
+{
+    "type": "screen_context",
+    "session_id": "s_9f2",
+    "turn_id": null,
+    "ts": 1699450000123,
+    "app": {
+        "package": "cm.demo.fintech",
+        "activity": "HomeActivity"
+    },
+    "screen_hint": "home",
+    "nodes": [
+        {
+            "node_id": "n_01",
+            "path": "root/scroll/balance_card",
+            "cls": "android.view.ViewGroup",
+            "text": "Solde disponible 42 500 FCFA",
+            "content_desc": null,
+            "clickable": false,
+            "password": false,
+            "bounds": [
+                16,
+                115,
+                344,
+                223
+            ],
+            "tone": "unknown"
+        },
+        {
+            "node_id": "n_02",
+            "path": "root/scroll/balance_card/amount",
+            "cls": "android.widget.TextView",
+            "text": "42 500 FCFA",
+            "bounds": [
+                90,
+                160,
+                270,
+                200
+            ],
+            "tone": "unknown"
+        }
+    ]
+}

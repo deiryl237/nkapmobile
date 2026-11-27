@@ -1,0 +1,42 @@
+{
+  "id": "s-inedit-actif",
+  "screen": "unseen",
+  "question_examples": [
+    "C'est quoi ce nouveau message en haut ?",
+    "Qu'est-ce qui vient d'apparaître ?",
+    "Lis-moi ce message important"
+  ],
+  "steps": [
+    {
+      "at": 0,
+      "do": [
+        { "t": "speak", "phrase_key": "unseen_attention", "text": "Attention ! Un nouveau message vient d'apparaître en haut de la page.", "lang": "fr" },
+        {
+          "t": "underline",
+          "id": "u-titre-inedit",
+          "target": { "match_text": ["Message important"] },
+          "color": "yellow",
+          "duration_ms": 480
+        }
+      ]
+    },
+    {
+      "at": 1200,
+      "do": [
+        {
+          "t": "box",
+          "id": "b-corps-inedit",
+          "target": { "value_of": ["Message important"], "match_text": ["Message important"] },
+          "color": "ink",
+          "duration_ms": 720
+        },
+        { "t": "speak", "phrase_key": "unseen_read", "text": "Lis bien cette consigne avant de poursuivre ton opération.", "lang": "fr" }
+      ]
+    },
+    {
+      "at": 6200,
+      "do": [{ "t": "clear" }]
+    }
+  ]
+}
+

@@ -1,0 +1,36 @@
+{
+  "id": "s4-recap-destinataire",
+  "screen": "recap",
+  "question_examples": [
+    "À qui va l'argent ?",
+    "Où je vérifie le nom et le téléphone ?",
+    "Et si je me suis trompé sur le numéro ?"
+  ],
+  "steps": [
+    {
+      "at": 0,
+      "do": [
+        { "t": "speak", "phrase_key": "recap_benef_check", "text": "Vérifie une dernière fois le nom et le téléphone du bénéficiaire.", "lang": "fr" },
+        { "t": "box", "id": "b-recap-benef", "target": { "value_of": ["Bénéficiaire"] }, "color": "ink", "duration_ms": 680 }
+      ]
+    },
+    {
+      "at": 1200,
+      "do": [
+        { "t": "underline", "id": "u-recap-tel", "target": { "value_of": ["Téléphone"] }, "color": "yellow", "duration_ms": 480 }
+      ]
+    },
+    {
+      "at": 2600,
+      "do": [
+        { "t": "circle", "id": "c-btn-modifier", "target": { "match_text": ["Modifier", "Retour"] }, "color": "ink", "duration_ms": 650 },
+        { "t": "speak", "phrase_key": "recap_edit_hint", "text": "S'il y a une erreur, appuie sur Modifier pour corriger.", "lang": "fr" }
+      ]
+    },
+    {
+      "at": 6400,
+      "do": [{ "t": "clear" }]
+    }
+  ]
+}
+

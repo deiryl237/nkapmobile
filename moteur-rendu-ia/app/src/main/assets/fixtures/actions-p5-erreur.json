@@ -1,0 +1,14 @@
+{
+  "id": "p5-erreur",
+  "comment": "P5 — traitement d'un avertissement de sécurité. Le rouge = danger, l'écriture « JAMAIS ! » est sur papier blanc (lisible partout).",
+  "steps": [
+    { "at": 0, "do": [{ "t": "speak", "text": "Attention : ne partage jamais ton code secret. Personne ne te le demandera.", "lang": "fr" }] },
+    { "at": 500, "do": [
+      { "t": "frame", "id": "f-alerte", "target": { "match_text": "Ne partagez jamais" }, "color": "red" }
+    ] },
+    { "at": 1400, "do": [
+      { "t": "write", "id": "w-jamais", "text": "JAMAIS !", "target": { "match_text": "Ne partagez jamais", "dy": -60 }, "size": 34, "color": "red", "per_letter_ms": 70, "backing": "paper" }
+    ] },
+    { "at": 5600, "do": [{ "t": "clear" }] }
+  ]
+}

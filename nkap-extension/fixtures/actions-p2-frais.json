@@ -1,0 +1,21 @@
+{
+  "id": "p2-frais",
+  "comment": "P2 — explication des frais. Libellés = liste de synonymes (premier trouvé gagne) ; le montant des frais = le PLUS PETIT montant de l'écran (sur un écran de frais, c'est presque toujours lui). Aucun montant n'est réécrit.",
+  "steps": [
+    { "at": 0, "do": [
+      { "t": "speak", "phrase_key": "fees_intro", "text": "Je t'explique les frais.", "lang": "fr" }
+    ] },
+    { "at": 400, "do": [
+      { "t": "underline", "id": "u-frais", "target": { "match_text": ["Frais de transfert", "Frais de l'opération", "Frais d'envoi", "Consulter les frais", "Frais"] }, "color": "yellow", "duration_ms": 450 }
+    ] },
+    { "at": 1100, "do": [
+      { "t": "circle", "id": "c-frais-val", "target": { "match_regex": "\\d[\\d\\s.,]*\\s*(?:FCFA|francs?)", "pick": "smallest_value" }, "color": "ink", "duration_ms": 700 },
+      { "t": "speak", "phrase_key": "fees_type", "text": "Les frais dépendent du type de transfert.", "lang": "fr" }
+    ] },
+    { "at": 3800, "do": [
+      { "t": "speak", "phrase_key": "fees_instant_free", "text": "Le transfert instantané est gratuit.", "lang": "fr" },
+      { "t": "speak", "phrase_key": "fees_minmax", "text": "Il y a un minimum et un maximum, ils sont écrits.", "lang": "fr" }
+    ] },
+    { "at": 7600, "do": [{ "t": "clear" }] }
+  ]
+}

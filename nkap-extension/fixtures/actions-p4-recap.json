@@ -1,0 +1,37 @@
+{
+  "id": "p4-recap",
+  "comment": "P4 — récapitulatif avant confirmation. Souligne le montant et les frais, encadre le total débité d'un rectangle manuscrit qui ferme son contour, puis indique le bouton Confirmer.",
+  "steps": [
+    {
+      "at": 0,
+      "do": [
+        { "t": "speak", "phrase_key": "recap_intro", "text": "Voici le résumé avant de confirmer.", "lang": "fr" },
+        { "t": "underline", "id": "u-montant", "target": { "match_text": ["10 000 FCFA", "Montant"] }, "color": "yellow", "duration_ms": 450 }
+      ]
+    },
+    {
+      "at": 1200,
+      "do": [
+        { "t": "underline", "id": "u-frais", "target": { "match_text": ["25 FCFA", "Frais"] }, "color": "yellow", "duration_ms": 450 },
+        { "t": "speak", "phrase_key": "recap_show", "text": "Le montant, les frais et le total sont écrits ici.", "lang": "fr" }
+      ]
+    },
+    {
+      "at": 3200,
+      "do": [
+        { "t": "box", "id": "b-total", "target": { "match_regex": "\\d[\\d\\s.,]*\\s*(?:FCFA|francs?)", "pick": "last" }, "color": "ink", "duration_ms": 700 },
+        { "t": "speak", "phrase_key": "recap_confirm", "text": "Si tout est bon, appuie pour confirmer.", "lang": "fr" }
+      ]
+    },
+    {
+      "at": 5800,
+      "do": [
+        { "t": "frame", "id": "f-confirm", "target": { "match_text": ["Confirmer le transfert", "Confirmer", "Valider"] }, "label": "Appuie ici" }
+      ]
+    },
+    {
+      "at": 9200,
+      "do": [{ "t": "clear" }]
+    }
+  ]
+}

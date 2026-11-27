@@ -1,0 +1,49 @@
+{
+  "id": "s4-confirmer-envoi",
+  "screen": "recap",
+  "question_examples": [
+    "Tout est bon, comment j'envoie ?",
+    "Comment confirmer le transfert ?",
+    "Où appuyer pour valider définitivement ?"
+  ],
+  "steps": [
+    {
+      "at": 0,
+      "do": [
+        { "t": "speak", "phrase_key": "recap_checkbox", "text": "Coche d'abord cette case pour confirmer que tout est exact.", "lang": "fr" },
+        {
+          "t": "box",
+          "id": "b-chk-confirm",
+          "target": { "match_text": ["Je confirme que les informations ci-dessus sont correctes"] },
+          "color": "ink",
+          "duration_ms": 700
+        }
+      ]
+    },
+    {
+      "at": 1500,
+      "do": [
+        {
+          "t": "arrow",
+          "id": "a-chk-vers-confirmer",
+          "from": { "match_text": ["Je confirme que les informations ci-dessus sont correctes"] },
+          "to": { "match_text": ["Confirmer le transfert", "Confirmer"] },
+          "color": "ink",
+          "duration_ms": 750
+        }
+      ]
+    },
+    {
+      "at": 2400,
+      "do": [
+        { "t": "frame", "id": "f-btn-confirmer", "target": { "match_text": ["Confirmer le transfert", "Confirmer"] }, "label": "Appuie ici" },
+        { "t": "speak", "phrase_key": "recap_confirm", "text": "Puis appuie sur Confirmer le transfert pour envoyer l'argent.", "lang": "fr" }
+      ]
+    },
+    {
+      "at": 6400,
+      "do": [{ "t": "clear" }]
+    }
+  ]
+}
+

@@ -1,0 +1,53 @@
+[
+    {
+        "type": "action",
+        "session_id": "s_9f2",
+        "turn_id": "t_17",
+        "ts": 1699450002100,
+        "seq": 1,
+        "speak_seg": 0,
+        "run_after_ms": 0,
+        "action": {
+            "t": "speak",
+            "id": "spk_1",
+            "text": "Solde wɔ́g á 42 500 FCFA.",
+            "lang": "ewo",
+            "mode": "bank",
+            "phrase_key": "balance_answer"
+        }
+    },
+    {
+        "type": "action",
+        "seq": 2,
+        "speak_seg": 0,
+        "run_after_ms": 200,
+        "action": {
+            "t": "circle",
+            "id": "c_1",
+            "target": {
+                "node_id": "n_01"
+            },
+            "color": "ink",
+            "duration_ms": 700
+        }
+    },
+    {
+        "type": "action",
+        "seq": 3,
+        "speak_seg": 0,
+        "run_after_ms": 900,
+        "action": {
+            "t": "write",
+            "id": "w_1",
+            "text": "42 500 FCFA",
+            "target": {
+                "node_id": "n_01",
+                "dy": -66
+            },
+            "size": 27,
+            "color": "ink",
+            "backing": "paper",
+            "per_letter_ms": 55
+        }
+    }
+]

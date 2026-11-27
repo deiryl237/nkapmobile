@@ -1,0 +1,74 @@
+{
+  "id": "s2-total-et-reste",
+  "screen": "fees",
+  "question_examples": [
+    "Combien va sortir au total ?",
+    "Combien il va me rester après l'opération ?",
+    "Explique-moi le calcul en bas"
+  ],
+  "steps": [
+    {
+      "at": 0,
+      "do": [
+        { "t": "speak", "phrase_key": "fees_total", "text": "Je pose le calcul sur ma feuille pour te montrer ce qu'il te restera.", "lang": "fr" },
+        {
+          "t": "notebook",
+          "id": "nb-calcul-solde",
+          "title": "Calcul sur ton compte",
+          "anchor": { "value_of": ["Solde après opération"] },
+          "lines": [
+            { "id": "nb-solde-avant", "label": "Solde avant", "value": "250 000 FCFA" },
+            {
+              "id": "nb-moins-total",
+              "label": "Total débité",
+              "value_from": { "value_of": ["Total à débiter", "Total débité"] },
+              "prefix": "- ",
+              "fallback_value": "25 000 FCFA",
+              "color": "red"
+            },
+            { "divider": true },
+            {
+              "id": "nb-solde-apres",
+              "label": "Reste après",
+              "value_from": { "value_of": ["Solde après opération"] },
+              "fallback_value": "225 000 FCFA",
+              "color": "green",
+              "bold": true,
+              "box": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "at": 2200,
+      "do": [
+        {
+          "t": "arrow",
+          "id": "a-nb-vers-reste",
+          "from": { "node_id": "nb-solde-apres-val" },
+          "to": { "value_of": ["Solde après opération"] },
+          "color": "ink",
+          "duration_ms": 680
+        },
+        { "t": "speak", "phrase_key": "balance_after_show", "text": "Ce montant correspond exactement au solde après opération écrit ici.", "lang": "fr" }
+      ]
+    },
+    {
+      "at": 3000,
+      "do": [
+        {
+          "t": "box",
+          "id": "b-val-reste",
+          "target": { "value_of": ["Solde après opération"] },
+          "color": "ink",
+          "duration_ms": 650
+        }
+      ]
+    },
+    {
+      "at": 7500,
+      "do": [{ "t": "clear" }]
+    }
+  ]
+}

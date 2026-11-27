@@ -1,0 +1,24 @@
+{
+  "id": "p6-inedit",
+  "comment": "P6 — répétition OFFLINE du contenu inédit. Souligne l'avertissement et entoure le plafond de 50 000 FCFA directement dans le texte injecté.",
+  "steps": [
+    {
+      "at": 0,
+      "do": [
+        { "t": "speak", "phrase_key": "unseen_attention", "text": "Attention ! Un message vient d'apparaître.", "lang": "fr" },
+        { "t": "underline", "id": "u-inedit", "target": { "match_text": ["Message important", "plafonne", "nouveau numero", "Important"] }, "color": "yellow", "duration_ms": 450 }
+      ]
+    },
+    {
+      "at": 1300,
+      "do": [
+        { "t": "box", "id": "b-inedit", "target": { "match_regex": "50\\s?000\\s*FCFA" }, "color": "ink", "duration_ms": 700 },
+        { "t": "speak", "phrase_key": "plafond_explain", "text": "Les transferts vers les nouveaux numéros ont une limite.", "lang": "fr" }
+      ]
+    },
+    {
+      "at": 5800,
+      "do": [{ "t": "clear" }]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+-keep class cm.nkapmobile.sdk.** { *; }

@@ -3,7 +3,6 @@
 .gradle/
 build/
 local.properties
-captures/
 .externalNativeBuild/
 .cxx/
 *.apk
@@ -23,3 +22,27 @@ Thumbs.db
 !debug.keystore
 .env
 secrets/
+
+# ── Python ──
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# ── Service voix ──
+voix/models/
+voix/generated/
+voix/.venv/
+voix/**/__pycache__/
+voix/.pytest_cache/
+
+# ── Extension packagée / Node ──
+nkap-extension/*.zip
+node_modules/
+
+# ── Vidéo démo (dossier local complet) ──
+video-demo/
+

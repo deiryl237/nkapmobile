@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "nkapmobile — accessibilité linguistique",
+  "version": "1.2.0",
+  "description": "NkapSDK v1.2 — Accessibilité linguistique & annotations visuelles multicanales (Web, Mobile, USSD, GAB, SMS).",
+  "permissions": ["storage", "activeTab"],
+  "host_permissions": [
+    "http://localhost/*",
+    "http://127.0.0.1/*",
+    "https://safinum.cm/*",
+    "http://13.60.229.114/*",
+    "https://*.sslip.io/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["fixtures/*.json", "fonts/*.ttf", "voice-bank/*", "vendor/nkap-sdk.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "action": { "default_popup": "popup.html" },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "exclude_matches": [
+        "*://safinum.cm/sandbox/ussd*",
+        "*://*.safinum.cm/sandbox/ussd*"
+      ],
+      "js": [
+        "vendor/nkap-sdk.js",
+        "src/lexicon.js",
+        "src/assistant.js",
+        "src/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": { "service_worker": "src/background.js" }
+}

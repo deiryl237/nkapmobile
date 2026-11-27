@@ -1,0 +1,23 @@
+{
+  "id": "p3-transfert",
+  "comment": "P3 — préparation d'un transfert. Phases séquentielles (hide entre chaque) : ≤ 3 marques simultanées. Le CTA est retrouvé parmi 6 libellés plausibles — le vrai bouton de l'environnement du comité est forcément l'un de ces synonymes.",
+  "steps": [
+    { "at": 0, "do": [
+      { "t": "speak", "phrase_key": "transfer_intro", "text": "On prépare le transfert ensemble.", "lang": "fr" }
+    ] },
+    { "at": 300, "do": [
+      { "t": "frame", "id": "f-cta", "target": { "match_text": ["Continuer", "Effectuer un transfert", "Effectuer le transfert", "Envoyer de l'argent", "Envoyer", "Suivant", "Valider"] }, "label": "Appuie ici" },
+      { "t": "speak", "phrase_key": "transfer_amount", "text": "Écris le montant ici.", "lang": "fr" }
+    ] },
+    { "at": 3400, "do": [
+      { "t": "hide", "id": "f-cta" },
+      { "t": "circle", "id": "c-montant", "target": { "match_text": ["Montant à envoyer", "Montant du transfert", "Montant"] }, "color": "ink", "duration_ms": 700 }
+    ] },
+    { "at": 5600, "do": [
+      { "t": "hide", "id": "c-montant" },
+      { "t": "arrow", "id": "a-cta", "from": { "match_text": ["Montant à envoyer", "Montant du transfert", "Montant"] }, "to": { "match_text": ["Continuer", "Effectuer un transfert", "Envoyer", "Suivant", "Valider"] }, "color": "ink", "duration_ms": 900 },
+      { "t": "speak", "phrase_key": "transfer_check", "text": "Vérifie bien le nom et le numéro avant de valider.", "lang": "fr" }
+    ] },
+    { "at": 9000, "do": [{ "t": "clear" }] }
+  ]
+}

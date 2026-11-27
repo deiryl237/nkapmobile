@@ -1,0 +1,48 @@
+{
+  "id": "s2-continuer-transfert",
+  "screen": "fees",
+  "question_examples": [
+    "J'ai mis le montant, je fais quoi maintenant ?",
+    "Comment passer à l'étape suivante ?",
+    "Où appuyer après avoir choisi le montant ?"
+  ],
+  "steps": [
+    {
+      "at": 0,
+      "do": [
+        { "t": "speak", "phrase_key": "transfer_amount", "text": "Vérifie d'abord le montant à envoyer.", "lang": "fr" },
+        {
+          "t": "box",
+          "id": "b-champ-montant",
+          "target": { "field_of": ["Montant à envoyer"] },
+          "color": "ink",
+          "duration_ms": 650
+        }
+      ]
+    },
+    {
+      "at": 1200,
+      "do": [
+        {
+          "t": "arrow",
+          "id": "a-total-vers-continuer",
+          "from": { "value_of": ["Total à débiter"], "field_of": ["Montant à envoyer"] },
+          "to": { "match_text": ["Continuer", "Suivant"] },
+          "color": "ink",
+          "duration_ms": 750
+        }
+      ]
+    },
+    {
+      "at": 2100,
+      "do": [
+        { "t": "frame", "id": "f-continuer-s2", "target": { "match_text": ["Continuer", "Suivant"] }, "label": "Appuie ici" },
+        { "t": "speak", "phrase_key": "transfer_continue", "text": "Puis appuie sur Continuer pour choisir le bénéficiaire.", "lang": "fr" }
+      ]
+    },
+    {
+      "at": 6000,
+      "do": [{ "t": "clear" }]
+    }
+  ]
+}

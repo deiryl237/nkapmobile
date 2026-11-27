@@ -1,0 +1,18 @@
+{
+  "id": "p5-erreur",
+  "comment": "P5 — erreur / avertissement de sécurité. Le cadre rouge (encre « agir ») entoure le premier élément d'alerte trouvé parmi les libellés plausibles de l'environnement réel. Les éléments masqués (display:none) sont ignorés sans erreur.",
+  "steps": [
+    { "at": 0, "do": [
+      { "t": "speak", "phrase_key": "error_intro", "text": "Attention ! Regarde ici.", "lang": "fr" }
+    ] },
+    { "at": 400, "do": [
+      { "t": "frame", "id": "f-alerte", "target": { "match_text": ["Solde insuffisant", "Alerte de sécurité", "Erreur réseau", "Ne partagez jamais", "Erreur", "Attention"] }, "label": "Attention" },
+      { "t": "speak", "phrase_key": "error_show", "text": "Le message est écrit ici.", "lang": "fr" }
+    ] },
+    { "at": 3400, "do": [
+      { "t": "write", "id": "w-jamais", "text": "JAMAIS !", "target": { "match_text": ["Ne partagez jamais", "code secret", "Alerte de sécurité"], "dy": -60 }, "size": 34, "color": "red", "per_letter_ms": 70, "backing": "paper" },
+      { "t": "speak", "phrase_key": "security_code", "text": "Ne donne jamais ton code secret.", "lang": "fr" }
+    ] },
+    { "at": 8200, "do": [{ "t": "clear" }] }
+  ]
+}

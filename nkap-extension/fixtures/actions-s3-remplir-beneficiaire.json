@@ -1,0 +1,54 @@
+{
+  "id": "s3-remplir-beneficiaire",
+  "screen": "beneficiary",
+  "question_examples": [
+    "Qu'est-ce que je dois écrire ici ?",
+    "Où je mets le nom et le numéro de ma sœur ?",
+    "Explique-moi cette page bénéficiaire"
+  ],
+  "steps": [
+    {
+      "at": 0,
+      "do": [
+        { "t": "speak", "phrase_key": "transfer_benef", "text": "Écris ou vérifie le nom du destinataire ici.", "lang": "fr" },
+        {
+          "t": "box",
+          "id": "b-nom-benef",
+          "target": { "field_of": ["Nom du bénéficiaire"] },
+          "color": "ink",
+          "duration_ms": 650
+        }
+      ]
+    },
+    {
+      "at": 1300,
+      "do": [
+        {
+          "t": "arrow",
+          "id": "a-nom-vers-tel",
+          "from": { "field_of": ["Nom du bénéficiaire"] },
+          "to": { "field_of": ["Numéro de téléphone"] },
+          "color": "ink",
+          "duration_ms": 650
+        },
+        { "t": "speak", "phrase_key": "transfer_phone", "text": "Puis vérifie son numéro de téléphone juste en dessous.", "lang": "fr" }
+      ]
+    },
+    {
+      "at": 2050,
+      "do": [
+        {
+          "t": "box",
+          "id": "b-tel-benef",
+          "target": { "field_of": ["Numéro de téléphone"] },
+          "color": "ink",
+          "duration_ms": 620
+        }
+      ]
+    },
+    {
+      "at": 6500,
+      "do": [{ "t": "clear" }]
+    }
+  ]
+}

@@ -1,0 +1,321 @@
+{
+  "language": "dua",
+  "count": 45,
+  "entries": [
+    {
+      "id": "S05",
+      "key": "site_05",
+      "fr": "Banque en ligne",
+      "dua": "Banki o internet",
+      "file": "S05_site_05.webm"
+    },
+    {
+      "id": "S07",
+      "key": "site_07",
+      "fr": "Jury",
+      "dua": "Bakaisedi",
+      "file": "S07_site_07.webm"
+    },
+    {
+      "id": "S08",
+      "key": "site_08",
+      "fr": "Solde",
+      "dua": "Moni mu diya o Banki",
+      "file": "S08_site_08.webm"
+    },
+    {
+      "id": "S09",
+      "key": "site_09",
+      "fr": "Frais",
+      "dua": "Busè",
+      "file": "S09_site_09.webm"
+    },
+    {
+      "id": "S10",
+      "key": "site_10",
+      "fr": "Bénéficiaire",
+      "dua": "Mukasedi",
+      "file": "S10_site_10.webm"
+    },
+    {
+      "id": "S11",
+      "key": "site_11",
+      "fr": "Récapitulatif",
+      "dua": "Misongi ma Banki",
+      "file": "S11_site_11.webm"
+    },
+    {
+      "id": "S12",
+      "key": "site_12",
+      "fr": "Confirmation",
+      "dua": "Bamsè",
+      "file": "S12_site_12.webm"
+    },
+    {
+      "id": "S13",
+      "key": "site_13",
+      "fr": "Votre compte",
+      "dua": "ekotèlè",
+      "file": "S13_site_13.webm"
+    },
+    {
+      "id": "S14",
+      "key": "site_14",
+      "fr": "Bonjour",
+      "dua": "idiba bwam",
+      "file": "S14_site_14.webm"
+    },
+    {
+      "id": "S15",
+      "key": "site_15",
+      "fr": "Consultez votre solde et lancez un transfert en toute sécurité.",
+      "dua": "ombwa moni mu diya,  na o lome na musango",
+      "file": "S15_site_15.webm"
+    },
+    {
+      "id": "S16",
+      "key": "site_16",
+      "fr": "Solde disponible",
+      "dua": "Moni mu diya",
+      "file": "S16_site_16.webm"
+    },
+    {
+      "id": "S17",
+      "key": "site_17",
+      "fr": "Numéro de compte",
+      "dua": "number konte",
+      "file": "S17_site_17.webm"
+    },
+    {
+      "id": "S19",
+      "key": "site_19",
+      "fr": "Effectuer un transfert",
+      "dua": "Loma moni",
+      "file": "S19_site_19.webm"
+    },
+    {
+      "id": "S20",
+      "key": "site_20",
+      "fr": "Consulter les frais",
+      "dua": "ombwa moni o maswa no",
+      "file": "S20_site_20.webm"
+    },
+    {
+      "id": "S21",
+      "key": "site_21",
+      "fr": "Transactions récentes",
+      "dua": "Misongi Misukan",
+      "file": "S21_site_21.webm"
+    },
+    {
+      "id": "S22",
+      "key": "site_22",
+      "fr": "Paiement marchand",
+      "dua": "saweya bato ba nunga",
+      "file": "S22_site_22.webm"
+    },
+    {
+      "id": "S23",
+      "key": "site_23",
+      "fr": "Salaire reçu",
+      "dua": "Musawedi",
+      "file": "S23_site_23.webm"
+    },
+    {
+      "id": "S24",
+      "key": "site_24",
+      "fr": "Transfert reçu",
+      "dua": "Moni mukasabè",
+      "file": "S24_site_24.webm"
+    },
+    {
+      "id": "S25",
+      "key": "site_25",
+      "fr": "Facture électricité",
+      "dua": "moni mwa mwaye",
+      "file": "S25_site_25.webm"
+    },
+    {
+      "id": "S27",
+      "key": "site_27",
+      "fr": "Frais de transfert",
+      "dua": "busisè o loma la moni",
+      "file": "S27_site_27.webm"
+    },
+    {
+      "id": "S28",
+      "key": "site_28",
+      "fr": "Choisissez le type de transfert et le montant. Les frais sont calculés automatiquement.",
+      "dua": "poso mwaninga o maloma no, Musongi mwèsè mu ma busa",
+      "file": "S28_site_28.webm"
+    },
+    {
+      "id": "S31",
+      "key": "site_31",
+      "fr": "Transfert instantané et gratuit",
+      "dua": "Loma tatan e si bè sawa",
+      "file": "S31_site_31.webm"
+    },
+    {
+      "id": "S32",
+      "key": "site_32",
+      "fr": "Mobile Money",
+      "dua": "moni o telefon",
+      "file": "S32_site_32.webm"
+    },
+    {
+      "id": "S36",
+      "key": "site_36",
+      "fr": "Montant à envoyer",
+      "dua": "Moni o maloma no",
+      "file": "S36_site_36.webm"
+    },
+    {
+      "id": "S38",
+      "key": "site_38",
+      "fr": "Gratuit",
+      "dua": "tete",
+      "file": "S38_site_38.webm"
+    },
+    {
+      "id": "S39",
+      "key": "site_39",
+      "fr": "Total à débiter",
+      "dua": "Busisè lèsè",
+      "file": "S39_site_39.webm"
+    },
+    {
+      "id": "S40",
+      "key": "site_40",
+      "fr": "Solde après opération",
+      "dua": "Ndje e peti",
+      "file": "S40_site_40.webm"
+    },
+    {
+      "id": "S41",
+      "key": "site_41",
+      "fr": "Retour",
+      "dua": "Botea",
+      "file": "S41_site_41.webm"
+    },
+    {
+      "id": "S42",
+      "key": "site_42",
+      "fr": "Continuer",
+      "dua": "A la Boso",
+      "file": "S42_site_42.webm"
+    },
+    {
+      "id": "S43",
+      "key": "site_43",
+      "fr": "Renseignez les informations du destinataire. Vérifiez toujours le numéro avant de valider.",
+      "dua": "Tila mambo ma mukasedi. Ombwa numb ao bwam o boso na o maloma",
+      "file": "S43_site_43.webm"
+    },
+    {
+      "id": "S44",
+      "key": "site_44",
+      "fr": "Ce bénéficiaire n'a jamais été utilisé sur ce compte. Vérifiez le numéro avant de continuer.",
+      "dua": "nu mukasedi a titi o kalata konti. Ombwa bwam o bia  na o mala o boso",
+      "file": "S44_site_44.webm"
+    },
+    {
+      "id": "S45",
+      "key": "site_45",
+      "fr": "Nom du bénéficiaire",
+      "dua": "Dina ma mukasedi",
+      "file": "S45_site_45.webm"
+    },
+    {
+      "id": "S47",
+      "key": "site_47",
+      "fr": "Motif du transfert",
+      "dua": "Djom a loma la moni",
+      "file": "S47_site_47.webm"
+    },
+    {
+      "id": "S48",
+      "key": "site_48",
+      "fr": "Paiement de services",
+      "dua": "saweya la ebolo",
+      "file": "S48_site_48.webm"
+    },
+    {
+      "id": "S50",
+      "key": "site_50",
+      "fr": "J'ai vérifié le nom et le numéro du bénéficiaire.",
+      "dua": "Nombo dina na number mukasedi",
+      "file": "S50_site_50.webm"
+    },
+    {
+      "id": "S52",
+      "key": "site_52",
+      "fr": "Vérifiez les informations avant de confirmer le transfert.",
+      "dua": "Ombwa bwam o bia na o ma bamsè",
+      "file": "S52_site_52.webm"
+    },
+    {
+      "id": "S58",
+      "key": "site_58",
+      "fr": "Je confirme que les informations ci-dessus sont correctes.",
+      "dua": "matila ma tenguènè",
+      "file": "S58_site_58.webm"
+    },
+    {
+      "id": "S59",
+      "key": "site_59",
+      "fr": "Modifier",
+      "dua": "tukwa",
+      "file": "S59_site_59.webm"
+    },
+    {
+      "id": "S60",
+      "key": "site_60",
+      "fr": "Confirmer le transfert",
+      "dua": "bamsè loma moni",
+      "file": "S60_site_60.webm"
+    },
+    {
+      "id": "S62",
+      "key": "site_62",
+      "fr": "Votre transfert a été envoyé avec succès.",
+      "dua": "moni mu busi mbwam",
+      "file": "S62_site_62.webm"
+    },
+    {
+      "id": "S65",
+      "key": "site_65",
+      "fr": "Nouveau transfert",
+      "dua": "loma la pena",
+      "file": "S65_site_65.webm"
+    },
+    {
+      "id": "S67",
+      "key": "site_67",
+      "fr": "Vérifiez toujours le nom et le numéro du bénéficiaire avant de confirmer un transfert.",
+      "dua": "mbamsè dina la mukasedi o bia na o maloma moni",
+      "file": "S67_site_67.webm"
+    },
+    {
+      "id": "S68",
+      "key": "site_68",
+      "fr": "Connexion sécurisée",
+      "dua": "ingueya na musango",
+      "file": "S68_site_68.webm"
+    },
+    {
+      "id": "S70",
+      "key": "site_70",
+      "fr": "Message important",
+      "dua": "Mwendi mwa muegna",
+      "file": "S70_site_70.webm"
+    },
+    {
+      "id": "S71",
+      "key": "site_71",
+      "fr": "Fermer",
+      "dua": "kwesè",
+      "file": "S71_site_71.webm"
+    }
+  ]
+}

@@ -1,0 +1,1688 @@
+{
+  "app_id": "wave",
+  "name": "Wave Mobile Money",
+  "match_packages": [
+    "com.wave.personal",
+    "com.wave"
+  ],
+  "match_urls": [],
+  "match_text_cues": [
+    "hide balance",
+    "vault",
+    "gimac transfer",
+    "enter a new number",
+    "scan to send",
+    "eneo prepaid",
+    "eneo postpaid",
+    "cam-water"
+  ],
+  "ui_translations": {
+    "send": "Envoyer de l'argent",
+    "send money": "Envoyer de l'argent",
+    "enter a new number": "Saisir un nouveau numéro",
+    "scan to send": "Scanner un QR pour envoyer",
+    "contacts": "Tes contacts",
+    "to": "Destinataire",
+    "send amount": "Montant envoyé",
+    "receive amount": "Montant reçu",
+    "bills": "Payer une facture",
+    "payments": "Paiements",
+    "utilities": "Services et factures",
+    "eneo prepaid": "ENEO Prépayé",
+    "eneo postpaid": "ENEO Facture mensuelle",
+    "cam-water": "Eau CAM-WATER",
+    "canal+": "TV Canal+",
+    "vault": "Coffre d'épargne",
+    "more": "Plus d'options",
+    "hide balance": "Masquer le solde",
+    "show balance": "Afficher le solde",
+    "settings": "Paramètres",
+    "airtime": "Crédit téléphone",
+    "bank": "Banque",
+    "transfer": "Envoyer de l'argent"
+  },
+  "action_buttons": [
+    "send",
+    "bills",
+    "payments",
+    "vault",
+    "more",
+    "settings",
+    "hide balance",
+    "show balance",
+    "airtime",
+    "bank",
+    "envoyer",
+    "factures",
+    "paiements",
+    "coffre",
+    "plus",
+    "parametres",
+    "enter a new number",
+    "scan to send",
+    "saisir un nouveau numero",
+    "scanner pour envoyer",
+    "eneo prepaid",
+    "eneo postpaid",
+    "cam-water",
+    "canal+",
+    "next",
+    "suivant",
+    "confirm",
+    "confirmer"
+  ],
+  "screen_detectors": [
+    {
+      "screen": "send_money",
+      "activity_any": [
+        "sendmoney",
+        "recipientpicker",
+        "chooserecipient",
+        "contactpicker"
+      ],
+      "text_any": [
+        "scan to send",
+        "scanner pour envoyer"
+      ],
+      "text_all_groups": [
+        [
+          "enter a new number",
+          "contacts"
+        ],
+        [
+          "saisir un nouveau numero",
+          "contacts"
+        ],
+        [
+          "send money",
+          "enter a new number"
+        ],
+        [
+          "envoyer de l'argent",
+          "saisir un nouveau numero"
+        ]
+      ],
+      "not_text_any": [
+        "hide balance",
+        "show balance",
+        "masquer le solde",
+        "afficher le solde"
+      ]
+    },
+    {
+      "screen": "send_amount",
+      "activity_any": [
+        "enteramount",
+        "sendamount",
+        "transferamount"
+      ],
+      "text_any": [
+        "send amount",
+        "receive amount",
+        "montant envoye",
+        "montant recu",
+        "montant a envoyer",
+        "wave fee",
+        "frais wave",
+        "send money to"
+      ],
+      "not_text_any": [
+        "hide balance",
+        "show balance",
+        "scan to send"
+      ]
+    },
+    {
+      "screen": "send_new_number",
+      "activity_any": [
+        "newnumber",
+        "enternumber"
+      ],
+      "text_any": [
+        "full name",
+        "nom complet",
+        "enter a phone number",
+        "saisir un numero"
+      ],
+      "text_all_groups": [
+        [
+          "full name",
+          "next"
+        ],
+        [
+          "nom complet",
+          "suivant"
+        ],
+        [
+          "phone number",
+          "next"
+        ]
+      ],
+      "not_text_any": [
+        "hide balance",
+        "show balance",
+        "scan to send"
+      ]
+    },
+    {
+      "screen": "card_qr",
+      "activity_any": [
+        "cardfullscreen"
+      ],
+      "text_any": [
+        "scan to pay",
+        "scanner pour payer",
+        "mon qr",
+        "my qr"
+      ],
+      "not_text_any": [
+        "hide balance",
+        "show balance",
+        "scan to send"
+      ]
+    },
+    {
+      "screen": "bills",
+      "activity_any": [
+        "billpay",
+        "bills",
+        "payments",
+        "merchant"
+      ],
+      "exact_any": [
+        "payments",
+        "paiements",
+        "utilities"
+      ],
+      "text_any": [
+        "search by name",
+        "rechercher par nom",
+        "electricity",
+        "electricite",
+        "eneo prepaid",
+        "eneo postpaid",
+        "eneo",
+        "cam-water",
+        "camwater",
+        "canal+",
+        "utilities",
+        "favoris",
+        "favorites"
+      ],
+      "not_text_any": [
+        "hide balance",
+        "show balance",
+        "masquer le solde",
+        "scan to send"
+      ]
+    },
+    {
+      "screen": "vault",
+      "activity_any": [
+        "vault",
+        "savings"
+      ],
+      "text_any": [
+        "add vault",
+        "transfer in",
+        "transfer out",
+        "lock your vault",
+        "your vault is empty",
+        "lock vault",
+        "verrouiller le coffre",
+        "transfer to vault",
+        "transferer vers le coffre",
+        "withdraw from vault",
+        "retirer du coffre",
+        "create a vault",
+        "creer un coffre",
+        "my vault",
+        "mon coffre"
+      ],
+      "not_text_any": [
+        "bills",
+        "factures",
+        "more",
+        "gimac transfer"
+      ]
+    },
+    {
+      "screen": "settings",
+      "activity_any": [
+        "settings"
+      ],
+      "text_any": [
+        "reset secret code",
+        "changer le code secret",
+        "call support",
+        "appeler le support",
+        "find nearby agents",
+        "trouver des agents",
+        "log out",
+        "se deconnecter",
+        "share wave",
+        "partager wave",
+        "verify your limit",
+        "verifier votre plafond"
+      ],
+      "not_text_any": [
+        "hide balance",
+        "show balance",
+        "masquer le solde"
+      ]
+    },
+    {
+      "screen": "more",
+      "activity_any": [
+        "more"
+      ],
+      "text_any": [
+        "airtime",
+        "credit telephonique",
+        "rewards",
+        "recompenses",
+        "transport"
+      ],
+      "not_text_any": [
+        "hide balance",
+        "show balance",
+        "masquer le solde",
+        "gimac transfer from"
+      ]
+    },
+    {
+      "screen": "home",
+      "activity_any": [
+        "personalhomeactivity",
+        "homeactivity"
+      ],
+      "text_any": [
+        "hide balance",
+        "show balance",
+        "masquer le solde",
+        "afficher le solde"
+      ],
+      "text_all_groups": [
+        [
+          "send",
+          "bills",
+          "vault"
+        ],
+        [
+          "send",
+          "payments",
+          "vault"
+        ],
+        [
+          "envoyer",
+          "factures",
+          "coffre"
+        ]
+      ]
+    }
+  ],
+  "screen_guides": {
+    "home": {
+      "llm_summary": "Accueil Wave : solde tout en haut, QR code au milieu, 4 boutons (Send, Bills/Payments, Vault, More) et historique des dernières transactions en bas.",
+      "spoken": "Tu es sur l'accueil de Wave. En haut s'affiche ton solde, au milieu ton QR code pour recevoir ou payer, puis les boutons Envoyer, Factures, Coffre et Plus.",
+      "highlights": [
+        {
+          "match": [
+            "send",
+            "envoyer"
+          ],
+          "style": "num",
+          "step": 1,
+          "label": "Envoyer",
+          "color": "yellow"
+        },
+        {
+          "match": [
+            "bills",
+            "factures",
+            "payments",
+            "paiements"
+          ],
+          "style": "num",
+          "step": 2,
+          "label": "Factures",
+          "color": "yellow"
+        }
+      ]
+    },
+    "send_money": {
+      "llm_summary": "Écran Send Money (déjà ouvert) : l'utilisateur choisit un destinataire dans Contacts, tape dans le champ To, appuie sur Enter a new number (nouveau numéro) ou Scan to send (scanner QR).",
+      "spoken": "Tu es sur l'écran d'envoi d'argent Wave. Tu as trois choix : appuie sur « Enter a new number » pour taper un nouveau numéro, sur « Scan to send » pour scanner le QR code de la personne, ou choisis directement un nom dans ta liste Contacts en dessous.",
+      "highlights": [
+        {
+          "match": [
+            "enter a new number",
+            "saisir un nouveau numero"
+          ],
+          "style": "num",
+          "step": 1,
+          "label": "Nouveau n°",
+          "color": "yellow"
+        },
+        {
+          "match": [
+            "scan to send",
+            "scanner pour envoyer"
+          ],
+          "style": "num",
+          "step": 2,
+          "label": "Scanner QR",
+          "color": "yellow"
+        },
+        {
+          "match": [
+            "contacts"
+          ],
+          "style": "highlight",
+          "color": "yellow"
+        }
+      ]
+    },
+    "send_new_number": {
+      "llm_summary": "Écran nouveau destinataire Wave : l'utilisateur saisit le nom complet et le numéro de téléphone du bénéficiaire, puis appuie sur Next / Suivant.",
+      "spoken": "Ici tu ajoutes un nouveau destinataire : renseigne son nom et son numéro de téléphone en vérifiant bien chaque chiffre, puis appuie sur Suivant.",
+      "highlights": [
+        {
+          "match": [
+            "full name",
+            "nom complet"
+          ],
+          "style": "num",
+          "step": 1,
+          "label": "Nom",
+          "color": "yellow"
+        },
+        {
+          "match": [
+            "next",
+            "suivant"
+          ],
+          "style": "frame",
+          "label": "Suivant",
+          "color": "yellow"
+        }
+      ]
+    },
+    "send_amount": {
+      "llm_summary": "Écran saisie du montant Wave : Send Amount (montant débité), Receive Amount (montant net reçu) et petits frais Wave affichés avant d'appuyer sur Send.",
+      "spoken": "Ici tu choisis la somme à envoyer : tape le montant dans Send Amount, vérifie bien le montant reçu et les frais affichés, puis appuie sur le bouton Envoyer en bas pour valider.",
+      "highlights": [
+        {
+          "match": [
+            "send amount",
+            "montant envoye",
+            "montant a envoyer"
+          ],
+          "style": "num",
+          "step": 1,
+          "label": "Montant",
+          "color": "yellow"
+        },
+        {
+          "match": [
+            "receive amount",
+            "montant recu"
+          ],
+          "style": "highlight",
+          "color": "yellow"
+        }
+      ]
+    },
+    "card_qr": {
+      "llm_summary": "QR code Wave plein écran : à montrer à un agent Wave pour un dépôt/retrait ou à un proche/marchand pour recevoir de l'argent.",
+      "spoken": "Ton QR code Wave est affiché en grand : montre-le à l'agent Wave pour faire un dépôt ou un retrait, ou à un proche pour recevoir de l'argent. Appuie sur la flèche en haut à gauche pour revenir à l'accueil.",
+      "highlights": []
+    },
+    "bills": {
+      "llm_summary": "Écran Payments / Factures (Bills) Wave : section Utilities avec ENEO Prepaid (compteur prépayé), ENEO Postpaid (facture mensuelle), CAM-WATER (eau) et Canal+ (télévision).",
+      "spoken": "Tu es sur l'écran Paiements (Payments) de Wave. Appuie sur le service à régler : ENEO Prepaid pour recharger un compteur électrique prépayé, ENEO Postpaid pour une facture mensuelle, CAM-WATER pour l'eau ou Canal+ pour la télé.",
+      "highlights": [
+        {
+          "match": [
+            "eneo prepaid",
+            "eneo"
+          ],
+          "style": "num",
+          "step": 1,
+          "label": "ENEO",
+          "color": "yellow"
+        },
+        {
+          "match": [
+            "cam-water",
+            "camwater"
+          ],
+          "style": "num",
+          "step": 2,
+          "label": "Eau",
+          "color": "yellow"
+        },
+        {
+          "match": [
+            "canal+"
+          ],
+          "style": "num",
+          "step": 3,
+          "label": "Canal+",
+          "color": "yellow"
+        }
+      ]
+    },
+    "vault": {
+      "llm_summary": "Écran Coffre (Vault) Wave : affiche le solde du coffre (séparé du solde principal), les boutons Transfer in (déposer), Transfer out (retirer), Lock your Vault (verrouiller) et Add Vault (ajouter un coffre).",
+      "spoken": "Tu es dans ton Coffre d'épargne Wave (Vault). Appuie sur « Transfer in » pour mettre de l'argent de côté, sur « Transfer out » pour le retirer vers ton solde principal, ou sur « Lock your Vault » pour verrouiller ton épargne.",
+      "highlights": [
+        {
+          "match": [
+            "transfer in",
+            "transfer to vault"
+          ],
+          "style": "num",
+          "step": 1,
+          "label": "Déposer",
+          "color": "yellow"
+        },
+        {
+          "match": [
+            "transfer out",
+            "withdraw from vault"
+          ],
+          "style": "num",
+          "step": 2,
+          "label": "Retirer",
+          "color": "yellow"
+        },
+        {
+          "match": [
+            "lock your vault",
+            "lock vault"
+          ],
+          "style": "highlight",
+          "color": "yellow"
+        }
+      ]
+    },
+    "more": {
+      "llm_summary": "Écran Plus (More) Wave : services complémentaires (crédit téléphonique Airtime, banque, récompenses, transport).",
+      "spoken": "Tu es dans le menu Plus de Wave : tu y retrouves les services complémentaires comme l'achat de crédit téléphonique, les transferts bancaires et d'autres paiements.",
+      "highlights": []
+    },
+    "settings": {
+      "llm_summary": "Écran Paramètres (Settings) Wave : changement du code secret, plafonds du compte, support client, agents à proximité et déconnexion.",
+      "spoken": "Tu es dans les paramètres Wave : tu peux y vérifier tes plafonds, trouver des agents proches, contacter le support client ou modifier ton code secret.",
+      "highlights": []
+    }
+  },
+  "qa_shortcuts": [
+    {
+      "id": "wave_home_send",
+      "screens": [
+        "home"
+      ],
+      "triggers": [
+        "envoyer",
+        "envoie",
+        "envoi",
+        "transferer",
+        "faire un transfert",
+        "transfert d'argent",
+        "faire un envoi",
+        "comment envoyer",
+        "je veux envoyer",
+        "send"
+      ],
+      "spoken": "Appuie ici sur Envoyer (Send), puis choisis ton bénéficiaire et le montant à envoyer.",
+      "target_match": [
+        "send",
+        "envoyer"
+      ],
+      "style": "frame",
+      "label": "Appuie ici",
+      "color": "yellow"
+    },
+    {
+      "id": "wave_home_bills",
+      "screens": [
+        "home"
+      ],
+      "triggers": [
+        "facture",
+        "eneo",
+        "camwater",
+        "cam-water",
+        "canal",
+        "payer une facture",
+        "electricite",
+        "eau",
+        "paiement",
+        "payments",
+        "bills"
+      ],
+      "spoken": "Appuie ici sur Factures (Bills / Payments) pour payer ENEO, CAM-WATER ou Canal+.",
+      "target_match": [
+        "bills",
+        "factures",
+        "payments",
+        "paiements"
+      ],
+      "style": "frame",
+      "label": "Appuie ici",
+      "color": "yellow"
+    },
+    {
+      "id": "wave_home_vault",
+      "screens": [
+        "home"
+      ],
+      "triggers": [
+        "vault",
+        "coffre",
+        "epargn",
+        "mettre de cote",
+        "economis"
+      ],
+      "spoken": "Le Coffre (Vault) te permet de mettre de l'argent de côté à l'abri de tes dépenses du jour, et de le retirer quand tu veux.",
+      "target_match": [
+        "vault",
+        "coffre"
+      ],
+      "style": "frame",
+      "label": "Coffre",
+      "color": "yellow"
+    },
+    {
+      "id": "wave_home_more",
+      "screens": [
+        "home"
+      ],
+      "triggers": [
+        "bouton more",
+        "c'est quoi more",
+        "cest quoi more",
+        "plus d'options",
+        "credit telephon",
+        "acheter du credit",
+        "recharger",
+        "unites",
+        "transfert bancaire",
+        "airtime"
+      ],
+      "spoken": "Appuie ici sur Plus (More) pour accéder aux autres services comme le crédit téléphonique ou les transferts bancaires.",
+      "target_match": [
+        "more",
+        "plus"
+      ],
+      "style": "frame",
+      "label": "Plus",
+      "color": "yellow"
+    },
+    {
+      "id": "wave_home_hide_balance",
+      "screens": [
+        "home"
+      ],
+      "triggers": [
+        "cacher",
+        "masquer",
+        "discret",
+        "oeil",
+        "afficher mon solde",
+        "hide balance",
+        "show balance"
+      ],
+      "spoken": "Appuie sur l'icône œil juste à côté de ton solde pour le masquer ou le réafficher discrètement.",
+      "target_match": [
+        "hide balance",
+        "show balance",
+        "masquer le solde",
+        "afficher le solde"
+      ],
+      "style": "circle",
+      "color": "yellow"
+    },
+    {
+      "id": "wave_home_qr",
+      "screens": [
+        "home"
+      ],
+      "triggers": [
+        "qr",
+        "code barre",
+        "carre",
+        "scanner",
+        "recevoir de l'argent",
+        "depot",
+        "retrait"
+      ],
+      "spoken": "Ce QR code au centre sert à recevoir de l'argent, payer un marchand ou faire un dépôt et un retrait chez un agent Wave : il lui suffit de le scanner.",
+      "target_match": [],
+      "style": "none"
+    },
+    {
+      "id": "wave_home_settings",
+      "screens": [
+        "home"
+      ],
+      "triggers": [
+        "parametre",
+        "reglage",
+        "settings",
+        "langue",
+        "support",
+        "code secret",
+        "plafond",
+        "deconnecter",
+        "trouver un agent"
+      ],
+      "spoken": "Appuie sur la roue crantée en haut à gauche pour ouvrir les paramètres, changer la langue, vérifier tes plafonds ou contacter le support Wave.",
+      "target_match": [
+        "settings",
+        "parametres"
+      ],
+      "style": "circle",
+      "color": "yellow"
+    },
+    {
+      "id": "wave_send_money_already_here",
+      "screens": [
+        "send_money"
+      ],
+      "triggers": [
+        "envoyer",
+        "envoie",
+        "envoi",
+        "transferer",
+        "transfert",
+        "faire un envoi",
+        "send"
+      ],
+      "spoken": "Tu es déjà sur l'écran d'envoi ! Choisis directement un contact dans ta liste, appuie sur « Enter a new number » pour taper un nouveau numéro, ou « Scan to send » pour scanner son QR code.",
+      "highlights": [
+        {
+          "match": [
+            "enter a new number",
+            "saisir un nouveau numero"
+          ],
+          "style": "num",
+          "step": 1,
+          "label": "Nouveau n°",
+          "color": "yellow"
+        },
+        {
+          "match": [
+            "scan to send",
+            "scanner pour envoyer"
+          ],
+          "style": "num",
+          "step": 2,
+          "label": "Scanner QR",
+          "color": "yellow"
+        },
+        {
+          "match": [
+            "contacts"
+          ],
+          "style": "highlight",
+          "color": "yellow"
+        }
+      ]
+    },
+    {
+      "id": "wave_send_money_new_number",
+      "screens": [
+        "send_money"
+      ],
+      "triggers": [
+        "nouveau numero",
+        "taper un numero",
+        "pas dans mes contacts",
+        "numero inconnu",
+        "enter a new number"
+      ],
+      "spoken": "Appuie ici sur « Enter a new number » pour saisir le nom et le numéro de quelqu'un qui n'est pas enregistré dans tes contacts.",
+      "target_match": [
+        "enter a new number",
+        "saisir un nouveau numero"
+      ],
+      "style": "frame",
+      "label": "Nouveau n°",
+      "color": "yellow"
+    },
+    {
+      "id": "wave_send_money_scan",
+      "screens": [
+        "send_money"
+      ],
+      "triggers": [
+        "scan",
+        "scanner",
+        "qr",
+        "code barre",
+        "camera"
+      ],
+      "spoken": "Appuie ici sur « Scan to send » pour scanner le QR code Wave de la personne : son numéro se remplit tout seul sans risque d'erreur.",
+      "target_match": [
+        "scan to send",
+        "scanner pour envoyer"
+      ],
+      "style": "frame",
+      "label": "Scanner QR",
+      "color": "yellow"
+    },
+    {
+      "id": "wave_send_money_contacts",
+      "screens": [
+        "send_money"
+      ],
+      "triggers": [
+        "mes contacts",
+        "ou sont mes contacts",
+        "liste des contacts",
+        "voir mes contacts",
+        "contacts"
+      ],
+      "spoken": "Tes contacts enregistrés s'affichent juste ici dans la section Contacts : appuie directement sur le nom de la personne à qui tu veux envoyer de l'argent.",
+      "target_match": [
+        "contacts"
+      ],
+      "style": "highlight",
+      "color": "yellow"
+    },
+    {
+      "id": "wave_send_money_search",
+      "screens": [
+        "send_money"
+      ],
+      "triggers": [
+        "chercher",
+        "rechercher",
+        "trouver un contact",
+        "champ to",
+        "barre to"
+      ],
+      "spoken": "Appuie sur le champ « To » en haut pour taper les premières lettres d'un nom ou un numéro et filtrer rapidement tes contacts.",
+      "target_match": [
+        "to"
+      ],
+      "style": "highlight",
+      "color": "yellow"
+    },
+    {
+      "id": "wave_sub_to_send",
+      "screens": [
+        "bills",
+        "vault",
+        "more",
+        "settings",
+        "card_qr"
+      ],
+      "triggers": [
+        "envoyer",
+        "envoie",
+        "envoi",
+        "transferer",
+        "faire un transfert",
+        "transfert d'argent",
+        "faire un envoi",
+        "comment envoyer",
+        "je veux envoyer",
+        "send"
+      ],
+      "spoken": "Pour envoyer de l'argent, reviens d'abord sur l'accueil avec la flèche en haut à gauche : je te montrerai le bouton Envoyer (Send) dès qu'on y arrive.",
+      "target_match": [
+        "back",
+        "navigate up",
+        "retour",
+        "revenir en haut",
+        "revenir",
+        "previous",
+        "close",
+        "fermer"
+      ],
+      "style": "circle",
+      "color": "yellow",
+      "follow_up": {
+        "target_screens": [
+          "home"
+        ],
+        "target_cues": [
+          "hide balance",
+          "show balance",
+          "masquer le solde",
+          "afficher le solde",
+          "vault"
+        ],
+        "ttl_ms": 30000
+      }
+    },
+    {
+      "id": "wave_sub_to_history",
+      "screens": [
+        "send_money",
+        "send_new_number",
+        "send_amount",
+        "bills",
+        "vault",
+        "more",
+        "settings",
+        "card_qr"
+      ],
+      "triggers": [
+        "dernieres operations",
+        "mes operations",
+        "historique",
+        "dernieres transactions",
+        "mes transactions",
+        "derniere transaction"
+      ],
+      "spoken": "Tes dernières opérations s'affichent sur l'accueil Wave : appuie sur la flèche retour en haut à gauche, je te les montrerai dès qu'on y arrive.",
+      "target_match": [
+        "back",
+        "navigate up",
+        "retour",
+        "revenir en haut",
+        "revenir",
+        "previous",
+        "close",
+        "fermer"
+      ],
+      "style": "circle",
+      "color": "yellow",
+      "follow_up": {
+        "target_screens": [
+          "home"
+        ],
+        "target_cues": [
+          "hide balance",
+          "show balance",
+          "masquer le solde",
+          "afficher le solde",
+          "vault"
+        ],
+        "ttl_ms": 30000
+      }
+    },
+    {
+      "id": "wave_sub_to_balance",
+      "screens": [
+        "send_money",
+        "send_new_number",
+        "send_amount",
+        "bills",
+        "more",
+        "settings",
+        "card_qr"
+      ],
+      "triggers": [
+        "mon solde",
+        "quel est mon solde",
+        "c'est quoi mon solde",
+        "cest quoi mon solde",
+        "combien j'ai",
+        "combien jai",
+        "solde disponible",
+        "combien il me reste"
+      ],
+      "spoken": "Ton solde s'affiche en haut de l'accueil Wave : appuie sur la flèche retour en haut à gauche, je te le lirai dès qu'on y arrive.",
+      "target_match": [
+        "back",
+        "navigate up",
+        "retour",
+        "revenir en haut",
+        "revenir",
+        "previous",
+        "close",
+        "fermer"
+      ],
+      "style": "circle",
+      "color": "yellow",
+      "follow_up": {
+        "target_screens": [
+          "home"
+        ],
+        "target_cues": [
+          "hide balance",
+          "show balance",
+          "masquer le solde",
+          "afficher le solde",
+          "vault"
+        ],
+        "ttl_ms": 30000
+      }
+    },
+    {
+      "id": "wave_sub_to_bills",
+      "screens": [
+        "send_money",
+        "send_new_number",
+        "send_amount",
+        "vault",
+        "more",
+        "settings",
+        "card_qr"
+      ],
+      "triggers": [
+        "facture",
+        "payer une facture",
+        "facture eneo",
+        "eneo",
+        "camwater",
+        "cam-water",
+        "canal",
+        "electricite",
+        "eau",
+        "bills",
+        "payments"
+      ],
+      "spoken": "Pour payer une facture (ENEO, CAM-WATER ou Canal+), reviens sur l'accueil avec la flèche en haut à gauche : je te montrerai Factures (Bills) dès qu'on y arrive.",
+      "target_match": [
+        "back",
+        "navigate up",
+        "retour",
+        "revenir en haut",
+        "revenir",
+        "previous",
+        "close",
+        "fermer"
+      ],
+      "style": "circle",
+      "color": "yellow",
+      "follow_up": {
+        "target_screens": [
+          "home"
+        ],
+        "target_cues": [
+          "hide balance",
+          "show balance",
+          "masquer le solde",
+          "afficher le solde",
+          "vault"
+        ],
+        "ttl_ms": 30000
+      }
+    },
+    {
+      "id": "wave_sub_to_vault",
+      "screens": [
+        "send_money",
+        "send_new_number",
+        "send_amount",
+        "bills",
+        "more",
+        "settings",
+        "card_qr"
+      ],
+      "triggers": [
+        "vault",
+        "coffre",
+        "epargn",
+        "mettre de cote",
+        "economis",
+        "ouvrir le coffre",
+        "aller dans vault",
+        "mon coffre"
+      ],
+      "spoken": "Ton Coffre d'épargne (Vault) est sur l'accueil Wave : appuie sur la flèche retour en haut à gauche, je te le montrerai dès qu'on y arrive.",
+      "target_match": [
+        "back",
+        "navigate up",
+        "retour",
+        "revenir en haut",
+        "revenir",
+        "previous",
+        "close",
+        "fermer"
+      ],
+      "style": "circle",
+      "color": "yellow",
+      "follow_up": {
+        "target_screens": [
+          "home"
+        ],
+        "target_cues": [
+          "hide balance",
+          "show balance",
+          "masquer le solde",
+          "afficher le solde",
+          "vault"
+        ],
+        "ttl_ms": 30000
+      }
+    },
+    {
+      "id": "wave_sub_to_more",
+      "screens": [
+        "send_money",
+        "send_new_number",
+        "send_amount",
+        "bills",
+        "vault",
+        "settings",
+        "card_qr"
+      ],
+      "triggers": [
+        "credit telephon",
+        "acheter du credit",
+        "recharger",
+        "airtime",
+        "unites",
+        "bouton more",
+        "plus d'options",
+        "transfert bancaire"
+      ],
+      "spoken": "Pour acheter du crédit téléphonique ou voir les autres services (More), reviens sur l'accueil avec la flèche en haut à gauche : je te montrerai le bouton Plus dès qu'on y arrive.",
+      "target_match": [
+        "back",
+        "navigate up",
+        "retour",
+        "revenir en haut",
+        "revenir",
+        "previous",
+        "close",
+        "fermer"
+      ],
+      "style": "circle",
+      "color": "yellow",
+      "follow_up": {
+        "target_screens": [
+          "home"
+        ],
+        "target_cues": [
+          "hide balance",
+          "show balance",
+          "masquer le solde",
+          "afficher le solde",
+          "vault"
+        ],
+        "ttl_ms": 30000
+      }
+    },
+    {
+      "id": "wave_sub_to_qr",
+      "screens": [
+        "send_new_number",
+        "send_amount",
+        "bills",
+        "vault",
+        "more",
+        "settings"
+      ],
+      "triggers": [
+        "qr",
+        "code barre",
+        "recevoir de l'argent",
+        "depot",
+        "retrait",
+        "mon qr"
+      ],
+      "spoken": "Ton QR code Wave est au centre de l'accueil : appuie sur la flèche retour en haut à gauche, je te le montrerai dès qu'on y arrive.",
+      "target_match": [
+        "back",
+        "navigate up",
+        "retour",
+        "revenir en haut",
+        "revenir",
+        "previous",
+        "close",
+        "fermer"
+      ],
+      "style": "circle",
+      "color": "yellow",
+      "follow_up": {
+        "target_screens": [
+          "home"
+        ],
+        "target_cues": [
+          "hide balance",
+          "show balance",
+          "masquer le solde",
+          "afficher le solde",
+          "vault"
+        ],
+        "ttl_ms": 30000
+      }
+    },
+    {
+      "id": "wave_sub_to_hide_balance",
+      "screens": [
+        "send_money",
+        "send_new_number",
+        "send_amount",
+        "bills",
+        "vault",
+        "more",
+        "settings",
+        "card_qr"
+      ],
+      "triggers": [
+        "cacher mon solde",
+        "masquer mon solde",
+        "afficher mon solde",
+        "cacher le solde",
+        "masquer le solde",
+        "hide balance"
+      ],
+      "spoken": "L'icône œil pour masquer ou afficher ton solde est en haut de l'accueil : appuie sur la flèche retour en haut à gauche, je te la montrerai dès qu'on y arrive.",
+      "target_match": [
+        "back",
+        "navigate up",
+        "retour",
+        "revenir en haut",
+        "revenir",
+        "previous",
+        "close",
+        "fermer"
+      ],
+      "style": "circle",
+      "color": "yellow",
+      "follow_up": {
+        "target_screens": [
+          "home"
+        ],
+        "target_cues": [
+          "hide balance",
+          "show balance",
+          "masquer le solde",
+          "afficher le solde",
+          "vault"
+        ],
+        "ttl_ms": 30000
+      }
+    },
+    {
+      "id": "wave_sub_to_settings",
+      "screens": [
+        "send_money",
+        "send_new_number",
+        "send_amount",
+        "bills",
+        "vault",
+        "more",
+        "card_qr"
+      ],
+      "triggers": [
+        "parametre",
+        "reglage",
+        "settings",
+        "code secret",
+        "support",
+        "plafond",
+        "langue",
+        "deconnecter",
+        "trouver un agent"
+      ],
+      "spoken": "Les paramètres Wave (code secret, langue, plafonds, support) s'ouvrent depuis la roue crantée en haut de l'accueil : appuie sur la flèche retour en haut à gauche, je te la montrerai dès qu'on y arrive.",
+      "target_match": [
+        "back",
+        "navigate up",
+        "retour",
+        "revenir en haut",
+        "revenir",
+        "previous",
+        "close",
+        "fermer"
+      ],
+      "style": "circle",
+      "color": "yellow",
+      "follow_up": {
+        "target_screens": [
+          "home"
+        ],
+        "target_cues": [
+          "hide balance",
+          "show balance",
+          "masquer le solde",
+          "afficher le solde",
+          "vault"
+        ],
+        "ttl_ms": 30000
+      }
+    },
+    {
+      "id": "wave_home_already_here",
+      "screens": [
+        "home"
+      ],
+      "triggers": [
+        "revenir a l'accueil",
+        "aller a l'accueil",
+        "retour a l'accueil",
+        "retour accueil",
+        "page d'accueil"
+      ],
+      "spoken": "Tu es déjà sur l'accueil de Wave ! Tu y vois ton solde en haut, ton QR code au centre et tes raccourcis juste en dessous.",
+      "target_match": [],
+      "style": "none"
+    },
+    {
+      "id": "wave_send_money_back",
+      "screens": [
+        "send_money",
+        "send_new_number",
+        "send_amount",
+        "bills",
+        "vault",
+        "more",
+        "settings",
+        "card_qr"
+      ],
+      "triggers": [
+        "annuler",
+        "revenir",
+        "retour",
+        "quitter",
+        "accueil"
+      ],
+      "spoken": "Appuie sur la flèche retour en haut à gauche pour revenir à l'écran précédent sans rien envoyer.",
+      "target_match": [
+        "back",
+        "navigate up",
+        "retour",
+        "revenir en haut",
+        "revenir",
+        "previous",
+        "close",
+        "fermer"
+      ],
+      "style": "circle",
+      "color": "yellow"
+    },
+    {
+      "id": "wave_send_amount_already_here",
+      "screens": [
+        "send_amount"
+      ],
+      "triggers": [
+        "envoyer",
+        "envoie",
+        "envoi",
+        "montant",
+        "combien",
+        "receive amount",
+        "send amount"
+      ],
+      "spoken": "Tape la somme voulue dans « Send Amount » : Wave affiche juste en dessous le montant reçu et les frais, puis appuie sur le bouton d'envoi pour confirmer.",
+      "highlights": [
+        {
+          "match": [
+            "send amount",
+            "montant envoye",
+            "montant a envoyer"
+          ],
+          "style": "num",
+          "step": 1,
+          "label": "Montant",
+          "color": "yellow"
+        },
+        {
+          "match": [
+            "receive amount",
+            "montant recu"
+          ],
+          "style": "highlight",
+          "color": "yellow"
+        }
+      ]
+    },
+    {
+      "id": "wave_send_new_number_help",
+      "screens": [
+        "send_new_number"
+      ],
+      "triggers": [
+        "envoyer",
+        "envoie",
+        "numero",
+        "nom",
+        "valider",
+        "suivant"
+      ],
+      "spoken": "Saisis le nom du destinataire et son numéro de téléphone en vérifiant chaque chiffre, puis appuie sur Suivant pour choisir le montant.",
+      "highlights": [
+        {
+          "match": [
+            "full name",
+            "nom complet"
+          ],
+          "style": "num",
+          "step": 1,
+          "label": "Nom",
+          "color": "yellow"
+        },
+        {
+          "match": [
+            "next",
+            "suivant"
+          ],
+          "style": "frame",
+          "label": "Suivant",
+          "color": "yellow"
+        }
+      ]
+    },
+    {
+      "id": "wave_bills_eneo_diff",
+      "screens": [
+        "bills"
+      ],
+      "triggers": [
+        "prepaid",
+        "postpaid",
+        "compteur",
+        "difference eneo",
+        "eneo prepaid",
+        "eneo postpaid"
+      ],
+      "spoken": "ENEO Prepaid sert à acheter du crédit pour un compteur électrique prépayé (tu reçois un code à taper sur le compteur). ENEO Postpaid sert à régler une facture mensuelle classique.",
+      "highlights": [
+        {
+          "match": [
+            "eneo prepaid"
+          ],
+          "style": "num",
+          "step": 1,
+          "label": "Prépayé",
+          "color": "yellow"
+        },
+        {
+          "match": [
+            "eneo postpaid"
+          ],
+          "style": "num",
+          "step": 2,
+          "label": "Facture",
+          "color": "yellow"
+        }
+      ]
+    },
+    {
+      "id": "wave_bills_water",
+      "screens": [
+        "bills"
+      ],
+      "triggers": [
+        "camwater",
+        "cam-water",
+        "facture d'eau",
+        "payer l'eau"
+      ],
+      "spoken": "Appuie ici sur CAM-WATER puis entre ton numéro d'abonné ou de facture et le montant pour payer ton eau.",
+      "target_match": [
+        "cam-water",
+        "camwater"
+      ],
+      "style": "frame",
+      "label": "CAM-WATER",
+      "color": "yellow"
+    },
+    {
+      "id": "wave_bills_canal",
+      "screens": [
+        "bills"
+      ],
+      "triggers": [
+        "canal+",
+        "canal",
+        "tele",
+        "television",
+        "abonnement tv"
+      ],
+      "spoken": "Appuie ici sur Canal+ puis entre le numéro de ta carte décodeur pour renouveler ton abonnement.",
+      "target_match": [
+        "canal+"
+      ],
+      "style": "frame",
+      "label": "Canal+",
+      "color": "yellow"
+    },
+    {
+      "id": "wave_bills_help",
+      "screens": [
+        "bills"
+      ],
+      "triggers": [
+        "facture",
+        "payer",
+        "eneo",
+        "electricite",
+        "eau",
+        "payments",
+        "paiement",
+        "utilities"
+      ],
+      "spoken": "Tu es déjà sur l'écran Paiements (Payments) ! Appuie sur ENEO Prepaid (compteur), ENEO Postpaid (facture), CAM-WATER (eau) ou Canal+ (TV), puis entre ta référence client et le montant.",
+      "highlights": [
+        {
+          "match": [
+            "eneo prepaid",
+            "eneo"
+          ],
+          "style": "num",
+          "step": 1,
+          "label": "ENEO",
+          "color": "yellow"
+        },
+        {
+          "match": [
+            "cam-water",
+            "camwater"
+          ],
+          "style": "num",
+          "step": 2,
+          "label": "Eau",
+          "color": "yellow"
+        },
+        {
+          "match": [
+            "canal+"
+          ],
+          "style": "num",
+          "step": 3,
+          "label": "Canal+",
+          "color": "yellow"
+        }
+      ]
+    },
+    {
+      "id": "wave_vault_balance",
+      "screens": [
+        "vault"
+      ],
+      "triggers": [
+        "mon solde",
+        "quel est mon solde",
+        "c'est quoi mon solde",
+        "cest quoi mon solde",
+        "combien j'ai",
+        "combien jai",
+        "solde disponible",
+        "combien il me reste"
+      ],
+      "spoken": "Le montant affiché ici est uniquement celui de ton Coffre (Vault). Pour voir ton solde principal Wave, appuie sur la flèche retour en haut à gauche : je te le lirai dès qu'on arrive sur l'accueil.",
+      "target_match": [
+        "back",
+        "navigate up",
+        "retour",
+        "revenir en haut",
+        "revenir",
+        "previous",
+        "close",
+        "fermer"
+      ],
+      "style": "circle",
+      "color": "yellow",
+      "follow_up": {
+        "target_screens": [
+          "home"
+        ],
+        "target_cues": [
+          "bills",
+          "factures",
+          "more",
+          "gimac transfer"
+        ],
+        "ttl_ms": 30000
+      }
+    },
+    {
+      "id": "wave_vault_lock",
+      "screens": [
+        "vault"
+      ],
+      "triggers": [
+        "lock your vault",
+        "lock vault",
+        "verrouill",
+        "bloqu"
+      ],
+      "spoken": "Appuie ici sur « Lock your Vault » pour bloquer ton coffre jusqu'à une date choisie et éviter de dépenser ton épargne trop tôt.",
+      "target_match": [
+        "lock your vault",
+        "lock vault",
+        "verrouiller le coffre"
+      ],
+      "style": "frame",
+      "label": "Verrouiller",
+      "color": "yellow"
+    },
+    {
+      "id": "wave_vault_add",
+      "screens": [
+        "vault"
+      ],
+      "triggers": [
+        "add vault",
+        "ajouter un coffre",
+        "nouveau coffre",
+        "creer un coffre"
+      ],
+      "spoken": "Appuie ici sur « Add Vault » en haut à droite pour créer un coffre d'épargne supplémentaire pour un autre objectif.",
+      "target_match": [
+        "add vault",
+        "create a vault",
+        "creer un coffre"
+      ],
+      "style": "frame",
+      "label": "Nouveau coffre",
+      "color": "yellow"
+    },
+    {
+      "id": "wave_vault_help",
+      "screens": [
+        "vault"
+      ],
+      "triggers": [
+        "vault",
+        "coffre",
+        "epargn",
+        "mettre de cote",
+        "transfer in",
+        "transfer out",
+        "deposer",
+        "retirer"
+      ],
+      "spoken": "Tu es dans ton Coffre Wave : appuie sur « Transfer in » pour mettre de l'argent dans le coffre, ou sur « Transfer out » pour le remettre sur ton solde principal.",
+      "highlights": [
+        {
+          "match": [
+            "transfer in",
+            "transfer to vault"
+          ],
+          "style": "num",
+          "step": 1,
+          "label": "Déposer",
+          "color": "yellow"
+        },
+        {
+          "match": [
+            "transfer out",
+            "withdraw from vault"
+          ],
+          "style": "num",
+          "step": 2,
+          "label": "Retirer",
+          "color": "yellow"
+        }
+      ]
+    },
+    {
+      "id": "wave_more_help",
+      "screens": [
+        "more"
+      ],
+      "triggers": [
+        "more",
+        "plus",
+        "airtime",
+        "credit",
+        "recharger",
+        "banque",
+        "recompense",
+        "transport"
+      ],
+      "spoken": "Tu es déjà dans le menu Plus (More) : choisis ici le service voulu, comme l'achat de crédit téléphonique (Airtime), les transferts bancaires ou les récompenses.",
+      "target_match": [],
+      "style": "none"
+    },
+    {
+      "id": "wave_card_qr_help",
+      "screens": [
+        "card_qr"
+      ],
+      "triggers": [
+        "qr",
+        "code barre",
+        "scanner",
+        "recevoir",
+        "depot",
+        "retrait",
+        "agent"
+      ],
+      "spoken": "Ton QR code Wave est déjà affiché en grand : montre-le à l'agent Wave pour un dépôt ou un retrait, ou à un proche pour recevoir de l'argent.",
+      "target_match": [],
+      "style": "none"
+    },
+    {
+      "id": "wave_settings_help",
+      "screens": [
+        "settings"
+      ],
+      "triggers": [
+        "parametre",
+        "reglage",
+        "settings",
+        "code secret",
+        "pin",
+        "support",
+        "aide",
+        "agent",
+        "plafond",
+        "langue",
+        "deconnecter"
+      ],
+      "spoken": "Tu es déjà dans les paramètres Wave : tu peux y changer ton code secret, vérifier tes plafonds, trouver un agent Wave à proximité ou appeler le support officiel.",
+      "target_match": [],
+      "style": "none"
+    },
+    {
+      "id": "wave_fees_general",
+      "triggers": [
+        "frais wave",
+        "combien coutent les frais",
+        "quels sont les frais",
+        "grille de frais",
+        "est-ce gratuit",
+        "est ce gratuit",
+        "tarif"
+      ],
+      "spoken": "Sur Wave, les dépôts et retraits chez un agent sont sans frais, et les transferts ont des frais réduits toujours affichés clairement avant que tu confirmes.",
+      "target_match": [],
+      "style": "none"
+    }
+  ]
+}

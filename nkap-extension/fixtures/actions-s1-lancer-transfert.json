@@ -1,0 +1,36 @@
+{
+  "id": "s1-lancer-transfert",
+  "screen": "home",
+  "question_examples": [
+    "Comment j'envoie de l'argent ?",
+    "Je veux faire un transfert",
+    "Où appuyer pour envoyer de l'argent ?"
+  ],
+  "steps": [
+    {
+      "at": 0,
+      "do": [
+        { "t": "speak", "phrase_key": "transfer_intro", "text": "Ton argent disponible est ici.", "lang": "fr" },
+        { "t": "box", "id": "b-solde", "target": { "match_regex": "\\d[\\d\\s.,\\u00A0\\u202F]*\\s*(?:FCFA|francs?)", "pick": "largest_value" }, "color": "ink", "duration_ms": 680 }
+      ]
+    },
+    {
+      "at": 1100,
+      "do": [
+        { "t": "arrow", "id": "a-vers-transfert", "from": { "match_regex": "\\d[\\d\\s.,\\u00A0\\u202F]*\\s*(?:FCFA|francs?)", "pick": "largest_value" }, "to": { "match_text": ["Effectuer un transfert", "Envoyer"] }, "color": "ink", "duration_ms": 780 }
+      ]
+    },
+    {
+      "at": 2100,
+      "do": [
+        { "t": "frame", "id": "f-btn-transfert", "target": { "match_text": ["Effectuer un transfert", "Envoyer"] }, "label": "Appuie ici" },
+        { "t": "speak", "phrase_key": "transfer_start_cta", "text": "Appuie sur ce bouton jaune pour commencer le transfert.", "lang": "fr" }
+      ]
+    },
+    {
+      "at": 6200,
+      "do": [{ "t": "clear" }]
+    }
+  ]
+}
+

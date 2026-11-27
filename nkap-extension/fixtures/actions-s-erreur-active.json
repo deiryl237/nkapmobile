@@ -1,0 +1,64 @@
+{
+  "id": "s-erreur-active",
+  "screen": "any",
+  "question_examples": [
+    "Expliquer l'erreur affichée",
+    "Pourquoi c'est rouge ?",
+    "Mon transfert est bloqué"
+  ],
+  "steps": [
+    {
+      "at": 0,
+      "do": [
+        {
+          "t": "speak",
+          "phrase_key": "erreur_active_1",
+          "text": "Attention : la banque bloque l'envoi avec ce message rouge. Rien n'a été retiré de ton compte.",
+          "lang": "fr"
+        },
+        {
+          "t": "box",
+          "id": "b-err-banner",
+          "target": { "match_text": ["Une erreur est survenue", "Solde insuffisant pour effectuer ce transfert.", "Alerte de sécurité :", "Erreur réseau :"] },
+          "color": "red",
+          "duration_ms": 550
+        },
+        {
+          "t": "notebook",
+          "id": "nb-erreur",
+          "title": "Pourquoi ça bloque ?",
+          "anchor": { "match_text": ["Une erreur est survenue", "Solde insuffisant pour effectuer ce transfert.", "Alerte de sécurité :", "Erreur réseau :"] },
+          "lines": [
+            { "id": "nb-e1", "text": "• L'opération s'est arrêtée par sécurité", "color": "red" },
+            { "id": "nb-e2", "text": "• Aucun franc n'a été débité", "color": "ink" },
+            { "divider": true },
+            { "id": "nb-e3", "text": "→ Corrige ce qui est demandé puis réessaie", "color": "yellow", "bold": true, "underline": true }
+          ]
+        }
+      ]
+    },
+    {
+      "at": 2600,
+      "do": [
+        {
+          "t": "arrow",
+          "id": "a-err-vers-banner",
+          "from": { "node_id": "nb-e3" },
+          "to": { "match_text": ["Une erreur est survenue", "Solde insuffisant pour effectuer ce transfert.", "Alerte de sécurité :", "Erreur réseau :"] },
+          "color": "red",
+          "duration_ms": 550
+        },
+        {
+          "t": "speak",
+          "phrase_key": "erreur_active_2",
+          "text": "Lis le message rouge, corrige le montant ou l'information demandée, puis recommence.",
+          "lang": "fr"
+        }
+      ]
+    },
+    {
+      "at": 8500,
+      "do": [{ "t": "clear" }]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+    "screens": {
+        "home": {
+            "title": "Accueil",
+            "nodes": [
+                "n_01",
+                "n_02"
+            ]
+        }
+    }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "s5-recu-succes",
+  "screen": "receipt",
+  "question_examples": [
+    "Est-ce que l'argent est bien parti ?",
+    "Où est ma preuve de paiement ?",
+    "Explique-moi ce reçu"
+  ],
+  "steps": [
+    {
+      "at": 0,
+      "do": [
+        { "t": "speak", "phrase_key": "receipt_success", "text": "Ton transfert a été envoyé avec succès !", "lang": "fr" },
+        { "t": "circle", "id": "c-statut-succes", "target": { "match_text": ["Succès", "Transfert effectué", "Transfert confirmé", "Votre opération a été enregistrée avec succès."] }, "color": "ink", "duration_ms": 650 }
+      ]
+    },
+    {
+      "at": 1300,
+      "do": [
+        { "t": "box", "id": "b-recu-ref", "target": { "value_of": ["Référence"] }, "color": "ink", "duration_ms": 620 },
+        { "t": "speak", "phrase_key": "receipt_details", "text": "Voici la référence de ton reçu et le total envoyé.", "lang": "fr" }
+      ]
+    },
+    {
+      "at": 2150,
+      "do": [
+        { "t": "underline", "id": "u-recu-total", "target": { "value_of": ["Total débité", "Nouveau solde disponible"] }, "color": "yellow", "duration_ms": 480 }
+      ]
+    },
+    {
+      "at": 6800,
+      "do": [{ "t": "clear" }]
+    }
+  ]
+}

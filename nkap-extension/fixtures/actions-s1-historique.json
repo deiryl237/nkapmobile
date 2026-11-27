@@ -1,0 +1,44 @@
+{
+  "id": "s1-historique",
+  "screen": "home",
+  "question_examples": [
+    "Est-ce que j'ai reçu mon salaire ?",
+    "C'est quoi les transactions récentes en bas ?",
+    "Montre-moi mes dernières opérations"
+  ],
+  "steps": [
+    {
+      "at": 0,
+      "do": [
+        { "t": "speak", "phrase_key": "history_intro", "text": "Voici tes dernières opérations.", "lang": "fr" },
+        { "t": "underline", "id": "u-hist-titre", "target": { "match_text": ["Transactions récentes", "Historique"] }, "color": "yellow", "duration_ms": 450 }
+      ]
+    },
+    {
+      "at": 1000,
+      "do": [
+        { "t": "underline", "id": "u-salaire-label", "target": { "match_text": ["Salaire reçu", "Transfert reçu"] }, "color": "yellow", "duration_ms": 450 },
+        { "t": "speak", "phrase_key": "history_salary", "text": "Ton salaire reçu et son montant sont écrits sur cette ligne.", "lang": "fr" }
+      ]
+    },
+    {
+      "at": 1600,
+      "do": [
+        {
+          "t": "box",
+          "id": "b-salaire-montant",
+          "target": {
+            "value_of": ["Salaire reçu", "Transfert reçu"],
+            "match_text": ["+180 000 FCFA", "+ 180 000 FCFA", "180 000 FCFA"]
+          },
+          "color": "ink",
+          "duration_ms": 650
+        }
+      ]
+    },
+    {
+      "at": 6200,
+      "do": [{ "t": "clear" }]
+    }
+  ]
+}

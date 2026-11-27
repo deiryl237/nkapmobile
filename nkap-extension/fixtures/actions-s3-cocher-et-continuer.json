@@ -1,0 +1,49 @@
+{
+  "id": "s3-cocher-et-continuer",
+  "screen": "beneficiary",
+  "question_examples": [
+    "Pourquoi ça ne veut pas continuer ?",
+    "Je fais quoi après avoir rempli le bénéficiaire ?",
+    "Comment valider le destinataire ?"
+  ],
+  "steps": [
+    {
+      "at": 0,
+      "do": [
+        { "t": "speak", "phrase_key": "benef_checkbox", "text": "Coche d'abord cette case pour confirmer que tu as vérifié le numéro.", "lang": "fr" },
+        {
+          "t": "box",
+          "id": "b-chk-benef",
+          "target": { "match_text": ["J'ai vérifié le nom et le numéro du bénéficiaire"] },
+          "color": "ink",
+          "duration_ms": 700
+        }
+      ]
+    },
+    {
+      "at": 1500,
+      "do": [
+        {
+          "t": "arrow",
+          "id": "a-chk-vers-continuer",
+          "from": { "match_text": ["J'ai vérifié le nom et le numéro du bénéficiaire"] },
+          "to": { "match_text": ["Continuer"] },
+          "color": "ink",
+          "duration_ms": 750
+        }
+      ]
+    },
+    {
+      "at": 2400,
+      "do": [
+        { "t": "frame", "id": "f-continuer-s3", "target": { "match_text": ["Continuer"] }, "label": "Appuie ici" },
+        { "t": "speak", "phrase_key": "transfer_continue", "text": "Puis appuie sur Continuer pour voir le récapitulatif.", "lang": "fr" }
+      ]
+    },
+    {
+      "at": 6400,
+      "do": [{ "t": "clear" }]
+    }
+  ]
+}
+
